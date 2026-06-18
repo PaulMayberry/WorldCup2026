@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Sweepstake League — World Cup 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pitch:#0a1f16; --pitch-2:#0d271b; --panel:#102a1e;
+    --line:#1c4332; --line-soft:#163528;
+    --ink:#f1f6f1; --muted:#86a596;
+    --gold:#f2c14e; --silver:#cfd8dc; --bronze:#cf8f5e;
+    --win:#3ab77a; --draw:#d9a94e; --loss:#c45d4c; --pending:#5e7a6c;
+    --qual:#2f8f63;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    background:
+      radial-gradient(ellipse 120% 80% at 50% -10%, rgba(31,90,64,.45) 0%, transparent 60%),
+      linear-gradient(180deg,var(--pitch) 0%, var(--pitch-2) 100%);
+    background-attachment:fixed; color:var(--ink); line-height:1.5;
+    padding:0 16px 64px; min-height:100vh;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+
+  header{padding:38px 0 24px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.32em;
+    text-transform:uppercase;font-size:.72rem;color:var(--gold)}
+  h1{font-family:'Oswald',sans-serif;font-weight:700;line-height:.98;
+    font-size:clamp(2.3rem,8vw,3.6rem);letter-spacing:.01em;margin:.18em 0 .12em}
+  .sub{color:var(--muted);font-size:.95rem;max-width:54ch}
+  .status{display:inline-flex;align-items:center;gap:8px;margin-top:16px;
+    background:var(--panel);border:1px solid var(--line);border-radius:999px;
+    padding:7px 14px;font-size:.8rem;color:var(--ink)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--win)}
+
+  .seclabel{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.2em;
+    font-size:.78rem;color:var(--muted);margin:34px 2px 12px;display:flex;align-items:baseline;gap:10px}
+  .seclabel span{height:1px;flex:1;background:var(--line)}
+
+  .board{display:flex;flex-direction:column;gap:8px}
+  .row{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;transition:border-color .2s}
+  .row.open{border-color:var(--gold)}
+  .rowhead{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;
+    padding:14px 16px;cursor:pointer;user-select:none}
+  .rank{font-family:'Oswald',sans-serif;font-weight:700;font-size:1.25rem;text-align:center;color:var(--muted)}
+  .r1 .rank{color:var(--gold)} .r2 .rank{color:var(--silver)} .r3 .rank{color:var(--bronze)}
+  .who{min-width:0}
+  .name{font-family:'Oswald',sans-serif;font-weight:600;font-size:1.18rem;letter-spacing:.01em}
+  .form{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+  .pip{width:13px;height:13px;border-radius:3px;flex:none}
+  .pip.w{background:var(--win)} .pip.d{background:var(--draw)} .pip.l{background:var(--loss)}
+  .ptsbox{text-align:right;display:flex;align-items:center;gap:12px}
+  .gd{font-family:'Oswald',sans-serif;font-size:.7rem;color:var(--muted);font-weight:500;min-width:34px;text-align:right;line-height:1.25}
+  .gd b{color:var(--ink);font-weight:600;font-size:.95rem}
+  .pts{font-family:'Oswald',sans-serif;font-weight:700;font-size:2rem;line-height:1}
+  .pts small{display:block;font-size:.58rem;letter-spacing:.18em;color:var(--muted);font-weight:500;text-align:right;margin-top:3px}
+  .chev{color:var(--muted);font-size:.8rem;transition:transform .2s}
+  .row.open .chev{transform:rotate(180deg)}
+
+  .teams{display:none;border-top:1px solid var(--line-soft);background:rgba(0,0,0,.16)}
+  .row.open .teams{display:block}
+  .team{display:grid;grid-template-columns:26px 1fr auto auto auto;align-items:center;gap:10px;
+    padding:11px 16px;border-bottom:1px solid var(--line-soft);font-size:.92rem}
+  .team:last-child{border-bottom:none}
+  .flag{font-size:1.2rem;line-height:1}
+  .tname{font-weight:600;min-width:0}
+  .tres{color:var(--muted);font-size:.8rem;text-align:right;white-space:nowrap}
+  .tgd{font-family:'Oswald',sans-serif;font-size:.85rem;color:var(--muted);width:34px;text-align:right}
+  .tpts{font-family:'Oswald',sans-serif;font-weight:700;font-size:1.05rem;width:20px;text-align:center}
+  .tpts.w{color:var(--win)} .tpts.d{color:var(--draw)} .tpts.l{color:var(--loss)}
+
+  .groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+  .grp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 14px 6px}
+  .grp h3{font-family:'Oswald',sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:.84rem}
+  thead th{font-family:'Oswald',sans-serif;font-weight:500;color:var(--muted);font-size:.66rem;
+    letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:0 0 7px}
+  thead th.tl{text-align:left}
+  tbody td{padding:7px 0;border-top:1px solid var(--line-soft);text-align:center;font-variant-numeric:tabular-nums}
+  tbody td.tl{text-align:left}
+  tr.q td{background:linear-gradient(90deg,rgba(47,143,99,.16),transparent 60%)}
+  .pos{color:var(--muted);width:16px;font-family:'Oswald',sans-serif}
+  tr.q .pos{color:var(--qual);font-weight:700}
+  .tcell{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .tcell .nm{font-weight:600;font-size:.9rem}
+  .own{font-size:.62rem;font-weight:700;border:1px solid currentColor;border-radius:5px;
+    padding:1px 5px;letter-spacing:.02em;white-space:nowrap}
+  .own.undrawn{color:var(--pending);border-style:dashed;font-weight:500;font-style:italic}
+  td.pt{font-family:'Oswald',sans-serif;font-weight:700;color:var(--ink)}
+  .gdpos{color:var(--win)} .gdneg{color:var(--loss)}
+
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin:16px 2px 0;font-size:.78rem;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .qkey{width:12px;height:12px;border-radius:3px;background:var(--qual)}
+  .note{margin-top:22px;padding:16px 18px;background:var(--panel);border:1px solid var(--line);
+    border-radius:14px;font-size:.86rem;color:var(--muted)}
+  .note b{color:var(--ink);font-weight:600}
+  footer{margin-top:26px;text-align:center;color:var(--muted);font-size:.74rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Mayberry Family Sweepstake</div>
+    <h1>The Group Table</h1>
+    <p class="sub">First round complete — every team has played once. Ranked by points, then goal difference. Tap a name to expand their five teams.</p>
+    <div class="status"><span class="dot"></span><span>Matchday 1 complete · updated 18 June</span></div>
+  </header>
+
+  <div class="seclabel">Family standings<span></span></div>
+  <div class="board" id="board"></div>
+
+  <div class="note" id="note"></div>
+
+  <div class="seclabel">Group tables A–L<span></span></div>
+  <div class="legend">
+    <span><span class="qkey"></span>Top 2 — automatic qualification</span>
+    <span>Owner shown beside each team · dashed = undrawn</span>
+  </div>
+  <div class="groups" id="groups" style="margin-top:14px"></div>
+
+  <footer>Played 1 of 3 group games · standings provisional · a bit of family fun</footer>
+</div>
+
+<script>
+const T = [
+  ["Mexico","🇲🇽","A","Ella",2,0,3], ["South Korea","🇰🇷","A","Dad",2,1,3],
+  ["Czechia","🇨🇿","A","Mum",1,2,0], ["South Africa","🇿🇦","A","Ella",0,2,0],
+
+  ["Switzerland","🇨🇭","B","Emily",1,1,1], ["Bosnia","🇧🇦","B","Emily",1,1,1],
+  ["Canada","🇨🇦","B","Oscar",1,1,1], ["Qatar","🇶🇦","B","Dad",1,1,1],
+
+  ["Scotland","🏴󠁧󠁢󠁳󠁣󠁴󠁿","C","Oscar",1,0,3], ["Brazil","🇧🇷","C","Ella",1,1,1],
+  ["Morocco","🇲🇦","C","Ben",1,1,1], ["Haiti","🇭🇹","C","Joey",0,1,0],
+
+  ["USA","🇺🇸","D",null,4,1,3], ["Australia","🇦🇺","D","Ben",2,0,3],
+  ["Türkiye","🇹🇷","D","Joey",0,2,0], ["Paraguay","🇵🇾","D",null,1,4,0],
+
+  ["Germany","🇩🇪","E","Emily",7,1,3], ["Ivory Coast","🇨🇮","E",null,1,0,3],
+  ["Ecuador","🇪🇨","E","Oscar",0,1,0], ["Curaçao","🇨🇼","E","Dad",1,7,0],
+
+  ["Sweden","🇸🇪","F","Emily",5,1,3], ["Netherlands","🇳🇱","F","Joey",2,2,1],
+  ["Japan","🇯🇵","F","Mum",2,2,1], ["Tunisia","🇹🇳","F","Patrick",1,5,0],
+
+  ["Belgium","🇧🇪","G","Oscar",1,1,1], ["Egypt","🇪🇬","G","Ella",1,1,1],
+  ["Iran","🇮🇷","G","Ella",2,2,1], ["New Zealand","🇳🇿","G","Ben",2,2,1],
+
+  ["Spain","🇪🇸","H","Emily",0,0,1], ["Cape Verde","🇨🇻","H","Mum",0,0,1],
+  ["Saudi Arabia","🇸🇦","H","Ben",1,1,1], ["Uruguay","🇺🇾","H","Luke",1,1,1],
+
+  ["Norway","🇳🇴","I","Mum",4,1,3], ["France","🇫🇷","I","Luke",3,1,3],
+  ["Senegal","🇸🇳","I","Ben",1,3,0], ["Iraq","🇮🇶","I","Joey",1,4,0],
+
+  ["Argentina","🇦🇷","J","Dad",3,0,3], ["Austria","🇦🇹","J","Luke",3,1,3],
+  ["Jordan","🇯🇴","J","Joey",1,3,0], ["Algeria","🇩🇿","J","Dad",0,3,0],
+
+  ["Colombia","🇨🇴","K","Patrick",3,1,3], ["Portugal","🇵🇹","K","Patrick",1,1,1],
+  ["DR Congo","🇨🇩","K","Luke",1,1,1], ["Uzbekistan","🇺🇿","K","Patrick",1,3,0],
+
+  ["England","🏴󠁧󠁢󠁥󠁮󠁧󠁿","L","Oscar",4,2,3], ["Ghana","🇬🇭","L","Luke",1,0,3],
+  ["Croatia","🇭🇷","L","Mum",2,4,0], ["Panama","🇵🇦","L","Patrick",0,1,0],
+].map(r=>({name:r[0],flag:r[1],group:r[2],owner:r[3],gf:r[4],ga:r[5],pts:r[6],gd:r[4]-r[5]}));
+
+const ownerColors = {
+  Luke:"#4ea8de", Emily:"#f2c14e", Oscar:"#e07a5f", Dad:"#c77dff", Ben:"#43aa8b",
+  Ella:"#f48fb1", Mum:"#90be6d", Patrick:"#f9844a", Joey:"#9fb3c8"
+};
+
+const byOwner = {};
+T.forEach(t=>{ if(!t.owner) return; (byOwner[t.owner] ||= []).push(t); });
+const managers = Object.entries(byOwner).map(([name,teams])=>({
+  name, teams,
+  pts: teams.reduce((s,t)=>s+t.pts,0),
+  gd:  teams.reduce((s,t)=>s+t.gd,0),
+  gf:  teams.reduce((s,t)=>s+t.gf,0)
+})).sort((a,b)=> b.pts-a.pts || b.gd-a.gd || b.gf-a.gf || a.name.localeCompare(b.name));
+
+const ord=["st","nd","rd"];
+const rankLabel=i=>{const n=i+1;return n+(ord[n-1]||"th")};
+const resType=t=> t.pts===3?"w":t.pts===1?"d":"l";
+const fmtGD=g=> (g>0?"+":"")+g;
+const resText=t=> (t.pts===3?"W":t.pts===1?"D":"L")+" "+t.gf+"-"+t.ga;
+
+const board=document.getElementById('board');
+managers.forEach((m,i)=>{
+  const row=document.createElement('div');
+  row.className='row r'+(i+1);
+  const pips=m.teams.map(t=>`<span class="pip ${resType(t)}"></span>`).join('');
+  const teamRows=[...m.teams].sort((a,b)=>b.pts-a.pts||b.gd-a.gd).map(t=>`
+    <div class="team">
+      <span class="flag">${t.flag}</span>
+      <span class="tname">${t.name}</span>
+      <span class="tres">${resText(t)}</span>
+      <span class="tgd">${fmtGD(t.gd)}</span>
+      <span class="tpts ${resType(t)}">${t.pts}</span>
+    </div>`).join('');
+  row.innerHTML=`
+    <div class="rowhead" role="button" tabindex="0" aria-expanded="false">
+      <div class="rank">${rankLabel(i)}</div>
+      <div class="who"><div class="name">${m.name}</div><div class="form">${pips}</div></div>
+      <div class="ptsbox">
+        <div class="gd">GD<br><b>${fmtGD(m.gd)}</b></div>
+        <div class="pts">${m.pts}<small>PTS</small></div>
+        <span class="chev">▼</span>
+      </div>
+    </div>
+    <div class="teams">${teamRows}</div>`;
+  const head=row.querySelector('.rowhead');
+  const toggle=()=>{const o=row.classList.toggle('open');head.setAttribute('aria-expanded',o);};
+  head.addEventListener('click',toggle);
+  head.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
+  board.appendChild(row);
+});
+
+const groups={};
+T.forEach(t=>{ (groups[t.group] ||= []).push(t); });
+const groupsEl=document.getElementById('groups');
+Object.keys(groups).sort().forEach(g=>{
+  const teams=groups[g].sort((a,b)=> b.pts-a.pts || b.gd-a.gd || b.gf-a.gf || a.name.localeCompare(b.name));
+  const rows=teams.map((t,idx)=>{
+    const q = idx<2 ? 'q' : '';
+    const col = t.owner ? (ownerColors[t.owner]||'#86a596') : null;
+    const chip = t.owner
+      ? `<span class="own" style="color:${col}">${t.owner}</span>`
+      : `<span class="own undrawn">undrawn</span>`;
+    const gdCls = t.gd>0?'gdpos':t.gd<0?'gdneg':'';
+    const w=t.pts===3?1:0, d=t.pts===1?1:0, l=t.pts===0?1:0;
+    return `<tr class="${q}">
+      <td class="pos">${idx+1}</td>
+      <td class="tl"><span class="tcell"><span class="flag" style="font-size:1rem">${t.flag}</span>
+        <span class="nm">${t.name}</span>${chip}</span></td>
+      <td>1</td><td>${w}</td><td>${d}</td><td>${l}</td>
+      <td class="${gdCls}">${fmtGD(t.gd)}</td>
+      <td class="pt">${t.pts}</td>
+    </tr>`;
+  }).join('');
+  const card=document.createElement('div');
+  card.className='grp';
+  card.innerHTML=`<h3>Group ${g}</h3>
+    <table>
+      <thead><tr><th></th><th class="tl">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+  groupsEl.appendChild(card);
+});
+
+const L0=managers[0], L1=managers[1];
+const patrickPts=managers.find(m=>m.name==='Patrick').pts;
+document.getElementById('note').innerHTML =
+  `<b>${L0.name} tops the table on ${L0.pts} points</b> after three wins and two draws — the only one in double figures. `+
+  `${L1.name} sits second on ${L1.pts}, with the best goal difference of anyone (${fmtGD(L1.gd)}, on the back of those Germany and Sweden routs) and arguably the strongest hand for the real prize, holding Spain. `+
+  `Patrick climbed off the bottom to ${patrickPts} once his teams finally played. `+
+  `Worth remembering: this points league rewards collecting draws across five teams, but the sweepstake itself pays out on who owns the teams that finish <b>1st, 2nd and 3rd</b> — so one strong run matters far more than a tidy table.`;
+</script>
+</body>
+</html>
