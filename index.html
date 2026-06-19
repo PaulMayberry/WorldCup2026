@@ -27,7 +27,6 @@
     padding:0 16px 64px; min-height:100vh;
   }
   .wrap{max-width:760px;margin:0 auto}
-
   header{padding:38px 0 24px;border-bottom:1px solid var(--line)}
   .eyebrow{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.32em;
     text-transform:uppercase;font-size:.72rem;color:var(--gold)}
@@ -38,17 +37,14 @@
     background:var(--panel);border:1px solid var(--line);border-radius:999px;
     padding:7px 14px;font-size:.8rem;color:var(--ink)}
   .dot{width:8px;height:8px;border-radius:50%;background:var(--win)}
-
   .seclabel{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.2em;
     font-size:.78rem;color:var(--muted);margin:34px 2px 12px;display:flex;align-items:baseline;gap:10px}
   .seclabel span{height:1px;flex:1;background:var(--line)}
 
   .board{display:flex;flex-direction:column;gap:8px}
-  .row{background:var(--panel);border:1px solid var(--line);border-radius:14px;
-    overflow:hidden;transition:border-color .2s}
+  .row{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .2s}
   .row.open{border-color:var(--gold)}
-  .rowhead{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;
-    padding:14px 16px;cursor:pointer;user-select:none}
+  .rowhead{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none}
   .rank{font-family:'Oswald',sans-serif;font-weight:700;font-size:1.25rem;text-align:center;color:var(--muted)}
   .r1 .rank{color:var(--gold)} .r2 .rank{color:var(--silver)} .r3 .rank{color:var(--bronze)}
   .who{min-width:0}
@@ -63,7 +59,6 @@
   .pts small{display:block;font-size:.58rem;letter-spacing:.18em;color:var(--muted);font-weight:500;text-align:right;margin-top:3px}
   .chev{color:var(--muted);font-size:.8rem;transition:transform .2s}
   .row.open .chev{transform:rotate(180deg)}
-
   .teams{display:none;border-top:1px solid var(--line-soft);background:rgba(0,0,0,.16)}
   .row.open .teams{display:block}
   .team{display:grid;grid-template-columns:26px 1fr auto auto auto;align-items:center;gap:10px;
@@ -71,18 +66,16 @@
   .team:last-child{border-bottom:none}
   .flag{font-size:1.2rem;line-height:1}
   .tname{font-weight:600;min-width:0}
-  .tres{color:var(--muted);font-size:.8rem;text-align:right;white-space:nowrap}
+  .trec{color:var(--muted);font-size:.8rem;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
   .tgd{font-family:'Oswald',sans-serif;font-size:.85rem;color:var(--muted);width:34px;text-align:right}
   .tpts{font-family:'Oswald',sans-serif;font-weight:700;font-size:1.05rem;width:20px;text-align:center}
   .tpts.w{color:var(--win)} .tpts.d{color:var(--draw)} .tpts.l{color:var(--loss)}
 
   .groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
   .grp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 14px 6px}
-  .grp h3{font-family:'Oswald',sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .grp h3{font-family:'Oswald',sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
   table{width:100%;border-collapse:collapse;font-size:.84rem}
-  thead th{font-family:'Oswald',sans-serif;font-weight:500;color:var(--muted);font-size:.66rem;
-    letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:0 0 7px}
+  thead th{font-family:'Oswald',sans-serif;font-weight:500;color:var(--muted);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:0 0 7px}
   thead th.tl{text-align:left}
   tbody td{padding:7px 0;border-top:1px solid var(--line-soft);text-align:center;font-variant-numeric:tabular-nums}
   tbody td.tl{text-align:left}
@@ -91,17 +84,14 @@
   tr.q .pos{color:var(--qual);font-weight:700}
   .tcell{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
   .tcell .nm{font-weight:600;font-size:.9rem}
-  .own{font-size:.62rem;font-weight:700;border:1px solid currentColor;border-radius:5px;
-    padding:1px 5px;letter-spacing:.02em;white-space:nowrap}
+  .own{font-size:.62rem;font-weight:700;border:1px solid currentColor;border-radius:5px;padding:1px 5px;letter-spacing:.02em;white-space:nowrap}
   .own.undrawn{color:var(--pending);border-style:dashed;font-weight:500;font-style:italic}
   td.pt{font-family:'Oswald',sans-serif;font-weight:700;color:var(--ink)}
   .gdpos{color:var(--win)} .gdneg{color:var(--loss)}
-
   .legend{display:flex;flex-wrap:wrap;gap:14px;margin:16px 2px 0;font-size:.78rem;color:var(--muted)}
   .legend span{display:inline-flex;align-items:center;gap:6px}
   .qkey{width:12px;height:12px;border-radius:3px;background:var(--qual)}
-  .note{margin-top:22px;padding:16px 18px;background:var(--panel);border:1px solid var(--line);
-    border-radius:14px;font-size:.86rem;color:var(--muted)}
+  .note{margin-top:22px;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:14px;font-size:.86rem;color:var(--muted)}
   .note b{color:var(--ink);font-weight:600}
   footer{margin-top:26px;text-align:center;color:var(--muted);font-size:.74rem}
 </style>
@@ -111,13 +101,12 @@
   <header>
     <div class="eyebrow">Mayberry Family Sweepstake</div>
     <h1>The Group Table</h1>
-    <p class="sub">First round complete — every team has played once. Ranked by points, then goal difference. Tap a name to expand their five teams.</p>
-    <div class="status"><span class="dot"></span><span>Matchday 1 complete · updated 18 June</span></div>
+    <p class="sub">Ranked by points, then goal difference. Tap a name to expand their five teams.</p>
+    <div class="status"><span class="dot"></span><span>Groups A &amp; B on 2 games, rest on 1 · updated 19 June</span></div>
   </header>
 
   <div class="seclabel">Family standings<span></span></div>
   <div class="board" id="board"></div>
-
   <div class="note" id="note"></div>
 
   <div class="seclabel">Group tables A–L<span></span></div>
@@ -127,47 +116,49 @@
   </div>
   <div class="groups" id="groups" style="margin-top:14px"></div>
 
-  <footer>Played 1 of 3 group games · standings provisional · a bit of family fun</footer>
+  <footer>Group stage in progress · standings provisional · a bit of family fun</footer>
 </div>
 
 <script>
+// [name, flag, group, owner, played, won, drawn, lost, goalsFor, goalsAgainst]
 const T = [
-  ["Mexico","🇲🇽","A","Ella",2,0,3], ["South Korea","🇰🇷","A","Dad",2,1,3],
-  ["Czechia","🇨🇿","A","Mum",1,2,0], ["South Africa","🇿🇦","A","Ella",0,2,0],
+  ["Mexico","🇲🇽","A","Ella",2,2,0,0,3,0], ["South Korea","🇰🇷","A","Dad",2,1,0,1,2,2],
+  ["Czechia","🇨🇿","A","Mum",2,0,1,1,2,3], ["South Africa","🇿🇦","A","Ella",2,0,1,1,1,3],
 
-  ["Switzerland","🇨🇭","B","Emily",1,1,1], ["Bosnia","🇧🇦","B","Emily",1,1,1],
-  ["Canada","🇨🇦","B","Oscar",1,1,1], ["Qatar","🇶🇦","B","Dad",1,1,1],
+  ["Switzerland","🇨🇭","B","Emily",2,1,1,0,5,2], ["Bosnia","🇧🇦","B","Emily",2,0,1,1,2,5],
+  ["Canada","🇨🇦","B","Oscar",2,1,1,0,7,1], ["Qatar","🇶🇦","B","Dad",2,0,1,1,1,7],
 
-  ["Scotland","🏴󠁧󠁢󠁳󠁣󠁴󠁿","C","Oscar",1,0,3], ["Brazil","🇧🇷","C","Ella",1,1,1],
-  ["Morocco","🇲🇦","C","Ben",1,1,1], ["Haiti","🇭🇹","C","Joey",0,1,0],
+  ["Scotland","🏴󠁧󠁢󠁳󠁣󠁴󠁿","C","Oscar",1,1,0,0,1,0], ["Brazil","🇧🇷","C","Ella",1,0,1,0,1,1],
+  ["Morocco","🇲🇦","C","Ben",1,0,1,0,1,1], ["Haiti","🇭🇹","C","Joey",1,0,0,1,0,1],
 
-  ["USA","🇺🇸","D",null,4,1,3], ["Australia","🇦🇺","D","Ben",2,0,3],
-  ["Türkiye","🇹🇷","D","Joey",0,2,0], ["Paraguay","🇵🇾","D",null,1,4,0],
+  ["USA","🇺🇸","D",null,1,1,0,0,4,1], ["Australia","🇦🇺","D","Ben",1,1,0,0,2,0],
+  ["Türkiye","🇹🇷","D","Joey",1,0,0,1,0,2], ["Paraguay","🇵🇾","D",null,1,0,0,1,1,4],
 
-  ["Germany","🇩🇪","E","Emily",7,1,3], ["Ivory Coast","🇨🇮","E",null,1,0,3],
-  ["Ecuador","🇪🇨","E","Oscar",0,1,0], ["Curaçao","🇨🇼","E","Dad",1,7,0],
+  ["Germany","🇩🇪","E","Emily",1,1,0,0,7,1], ["Ivory Coast","🇨🇮","E",null,1,1,0,0,1,0],
+  ["Ecuador","🇪🇨","E","Oscar",1,0,0,1,0,1], ["Curaçao","🇨🇼","E","Dad",1,0,0,1,1,7],
 
-  ["Sweden","🇸🇪","F","Emily",5,1,3], ["Netherlands","🇳🇱","F","Joey",2,2,1],
-  ["Japan","🇯🇵","F","Mum",2,2,1], ["Tunisia","🇹🇳","F","Patrick",1,5,0],
+  ["Sweden","🇸🇪","F","Emily",1,1,0,0,5,1], ["Netherlands","🇳🇱","F","Joey",1,0,1,0,2,2],
+  ["Japan","🇯🇵","F","Mum",1,0,1,0,2,2], ["Tunisia","🇹🇳","F","Patrick",1,0,0,1,1,5],
 
-  ["Belgium","🇧🇪","G","Oscar",1,1,1], ["Egypt","🇪🇬","G","Ella",1,1,1],
-  ["Iran","🇮🇷","G","Ella",2,2,1], ["New Zealand","🇳🇿","G","Ben",2,2,1],
+  ["Belgium","🇧🇪","G","Oscar",1,0,1,0,1,1], ["Egypt","🇪🇬","G","Ella",1,0,1,0,1,1],
+  ["Iran","🇮🇷","G","Ella",1,0,1,0,2,2], ["New Zealand","🇳🇿","G","Ben",1,0,1,0,2,2],
 
-  ["Spain","🇪🇸","H","Emily",0,0,1], ["Cape Verde","🇨🇻","H","Mum",0,0,1],
-  ["Saudi Arabia","🇸🇦","H","Ben",1,1,1], ["Uruguay","🇺🇾","H","Luke",1,1,1],
+  ["Spain","🇪🇸","H","Emily",1,0,1,0,0,0], ["Cape Verde","🇨🇻","H","Mum",1,0,1,0,0,0],
+  ["Saudi Arabia","🇸🇦","H","Ben",1,0,1,0,1,1], ["Uruguay","🇺🇾","H","Luke",1,0,1,0,1,1],
 
-  ["Norway","🇳🇴","I","Mum",4,1,3], ["France","🇫🇷","I","Luke",3,1,3],
-  ["Senegal","🇸🇳","I","Ben",1,3,0], ["Iraq","🇮🇶","I","Joey",1,4,0],
+  ["Norway","🇳🇴","I","Mum",1,1,0,0,4,1], ["France","🇫🇷","I","Luke",1,1,0,0,3,1],
+  ["Senegal","🇸🇳","I","Ben",1,0,0,1,1,3], ["Iraq","🇮🇶","I","Joey",1,0,0,1,1,4],
 
-  ["Argentina","🇦🇷","J","Dad",3,0,3], ["Austria","🇦🇹","J","Luke",3,1,3],
-  ["Jordan","🇯🇴","J","Joey",1,3,0], ["Algeria","🇩🇿","J","Dad",0,3,0],
+  ["Argentina","🇦🇷","J","Dad",1,1,0,0,3,0], ["Austria","🇦🇹","J","Luke",1,1,0,0,3,1],
+  ["Jordan","🇯🇴","J","Joey",1,0,0,1,1,3], ["Algeria","🇩🇿","J","Dad",1,0,0,1,0,3],
 
-  ["Colombia","🇨🇴","K","Patrick",3,1,3], ["Portugal","🇵🇹","K","Patrick",1,1,1],
-  ["DR Congo","🇨🇩","K","Luke",1,1,1], ["Uzbekistan","🇺🇿","K","Patrick",1,3,0],
+  ["Colombia","🇨🇴","K","Patrick",1,1,0,0,3,1], ["Portugal","🇵🇹","K","Patrick",1,0,1,0,1,1],
+  ["DR Congo","🇨🇩","K","Luke",1,0,1,0,1,1], ["Uzbekistan","🇺🇿","K","Patrick",1,0,0,1,1,3],
 
-  ["England","🏴󠁧󠁢󠁥󠁮󠁧󠁿","L","Oscar",4,2,3], ["Ghana","🇬🇭","L","Luke",1,0,3],
-  ["Croatia","🇭🇷","L","Mum",2,4,0], ["Panama","🇵🇦","L","Patrick",0,1,0],
-].map(r=>({name:r[0],flag:r[1],group:r[2],owner:r[3],gf:r[4],ga:r[5],pts:r[6],gd:r[4]-r[5]}));
+  ["England","🏴󠁧󠁢󠁥󠁮󠁧󠁿","L","Oscar",1,1,0,0,4,2], ["Ghana","🇬🇭","L","Luke",1,1,0,0,1,0],
+  ["Croatia","🇭🇷","L","Mum",1,0,0,1,2,4], ["Panama","🇵🇦","L","Patrick",1,0,0,1,0,1],
+].map(r=>({name:r[0],flag:r[1],group:r[2],owner:r[3],mp:r[4],w:r[5],d:r[6],l:r[7],
+           gf:r[8],ga:r[9],pts:r[5]*3+r[6],gd:r[8]-r[9]}));
 
 const ownerColors = {
   Luke:"#4ea8de", Emily:"#f2c14e", Oscar:"#e07a5f", Dad:"#c77dff", Ben:"#43aa8b",
@@ -180,27 +171,30 @@ const managers = Object.entries(byOwner).map(([name,teams])=>({
   name, teams,
   pts: teams.reduce((s,t)=>s+t.pts,0),
   gd:  teams.reduce((s,t)=>s+t.gd,0),
-  gf:  teams.reduce((s,t)=>s+t.gf,0)
+  gf:  teams.reduce((s,t)=>s+t.gf,0),
+  W:   teams.reduce((s,t)=>s+t.w,0),
+  D:   teams.reduce((s,t)=>s+t.d,0),
+  L:   teams.reduce((s,t)=>s+t.l,0)
 })).sort((a,b)=> b.pts-a.pts || b.gd-a.gd || b.gf-a.gf || a.name.localeCompare(b.name));
 
 const ord=["st","nd","rd"];
 const rankLabel=i=>{const n=i+1;return n+(ord[n-1]||"th")};
-const resType=t=> t.pts===3?"w":t.pts===1?"d":"l";
 const fmtGD=g=> (g>0?"+":"")+g;
-const resText=t=> (t.pts===3?"W":t.pts===1?"D":"L")+" "+t.gf+"-"+t.ga;
+const teamCls=t=> t.w>t.l?"w":t.l>t.w?"l":"d";
+const pipRun=(cls,n)=>Array(n).fill(`<span class="pip ${cls}"></span>`).join('');
 
 const board=document.getElementById('board');
 managers.forEach((m,i)=>{
   const row=document.createElement('div');
   row.className='row r'+(i+1);
-  const pips=m.teams.map(t=>`<span class="pip ${resType(t)}"></span>`).join('');
+  const pips=pipRun('w',m.W)+pipRun('d',m.D)+pipRun('l',m.L);
   const teamRows=[...m.teams].sort((a,b)=>b.pts-a.pts||b.gd-a.gd).map(t=>`
     <div class="team">
       <span class="flag">${t.flag}</span>
       <span class="tname">${t.name}</span>
-      <span class="tres">${resText(t)}</span>
+      <span class="trec">${t.w}-${t.d}-${t.l}</span>
       <span class="tgd">${fmtGD(t.gd)}</span>
-      <span class="tpts ${resType(t)}">${t.pts}</span>
+      <span class="tpts ${teamCls(t)}">${t.pts}</span>
     </div>`).join('');
   row.innerHTML=`
     <div class="rowhead" role="button" tabindex="0" aria-expanded="false">
@@ -228,16 +222,14 @@ Object.keys(groups).sort().forEach(g=>{
   const rows=teams.map((t,idx)=>{
     const q = idx<2 ? 'q' : '';
     const col = t.owner ? (ownerColors[t.owner]||'#86a596') : null;
-    const chip = t.owner
-      ? `<span class="own" style="color:${col}">${t.owner}</span>`
-      : `<span class="own undrawn">undrawn</span>`;
+    const chip = t.owner ? `<span class="own" style="color:${col}">${t.owner}</span>`
+                         : `<span class="own undrawn">undrawn</span>`;
     const gdCls = t.gd>0?'gdpos':t.gd<0?'gdneg':'';
-    const w=t.pts===3?1:0, d=t.pts===1?1:0, l=t.pts===0?1:0;
     return `<tr class="${q}">
       <td class="pos">${idx+1}</td>
       <td class="tl"><span class="tcell"><span class="flag" style="font-size:1rem">${t.flag}</span>
         <span class="nm">${t.name}</span>${chip}</span></td>
-      <td>1</td><td>${w}</td><td>${d}</td><td>${l}</td>
+      <td>${t.mp}</td><td>${t.w}</td><td>${t.d}</td><td>${t.l}</td>
       <td class="${gdCls}">${fmtGD(t.gd)}</td>
       <td class="pt">${t.pts}</td>
     </tr>`;
@@ -252,13 +244,14 @@ Object.keys(groups).sort().forEach(g=>{
   groupsEl.appendChild(card);
 });
 
-const L0=managers[0], L1=managers[1];
-const patrickPts=managers.find(m=>m.name==='Patrick').pts;
+const m0=managers[0], m1=managers[1], m2=managers[2], m3=managers[3];
+const dad=managers.find(m=>m.name==='Dad');
 document.getElementById('note').innerHTML =
-  `<b>${L0.name} tops the table on ${L0.pts} points</b> after three wins and two draws — the only one in double figures. `+
-  `${L1.name} sits second on ${L1.pts}, with the best goal difference of anyone (${fmtGD(L1.gd)}, on the back of those Germany and Sweden routs) and arguably the strongest hand for the real prize, holding Spain. `+
-  `Patrick climbed off the bottom to ${patrickPts} once his teams finally played. `+
-  `Worth remembering: this points league rewards collecting draws across five teams, but the sweepstake itself pays out on who owns the teams that finish <b>1st, 2nd and 3rd</b> — so one strong run matters far more than a tidy table.`;
+  `<b>${m0.name} is back on top with ${m0.pts} points</b> and the best goal difference of anyone (${fmtGD(m0.gd)}). `+
+  `${m1.name} climbs to second after Canada's 6-0 demolition of Qatar, edging ${m2.name} on goal difference with both on ${m1.pts}. `+
+  `${m3.name} has surged to fourth on the back of two Mexico wins — and Mexico are already the first team through to the knockouts. `+
+  `${dad.name} is still on ${dad.pts} but his goal difference has cratered to ${fmtGD(dad.gd)} after shipping six to Canada and seven to Germany. `+
+  `As ever: this points league rewards spreading draws across five teams, but the sweepstake pays out on who owns the sides finishing <b>1st, 2nd and 3rd</b> — so one strong run matters more than a tidy table.`;
 </script>
 </body>
 </html>
