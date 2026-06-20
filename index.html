@@ -102,7 +102,7 @@
     <div class="eyebrow">Mayberry Family Sweepstake</div>
     <h1>The Group Table</h1>
     <p class="sub">Ranked by points, then goal difference. Tap a name to expand their five teams.</p>
-    <div class="status"><span class="dot"></span><span>Groups A &amp; B on 2 games, rest on 1 · updated 19 June</span></div>
+    <div class="status"><span class="dot"></span><span>Groups A–D on 2 games, rest on 1 · updated 20 June</span></div>
   </header>
 
   <div class="seclabel">Family standings<span></span></div>
@@ -128,11 +128,11 @@ const T = [
   ["Switzerland","🇨🇭","B","Emily",2,1,1,0,5,2], ["Bosnia","🇧🇦","B","Emily",2,0,1,1,2,5],
   ["Canada","🇨🇦","B","Oscar",2,1,1,0,7,1], ["Qatar","🇶🇦","B","Dad",2,0,1,1,1,7],
 
-  ["Scotland","🏴󠁧󠁢󠁳󠁣󠁴󠁿","C","Oscar",1,1,0,0,1,0], ["Brazil","🇧🇷","C","Ella",1,0,1,0,1,1],
-  ["Morocco","🇲🇦","C","Ben",1,0,1,0,1,1], ["Haiti","🇭🇹","C","Joey",1,0,0,1,0,1],
+  ["Scotland","🏴󠁧󠁢󠁳󠁣󠁴󠁿","C","Oscar",2,1,0,1,1,1], ["Brazil","🇧🇷","C","Ella",2,1,1,0,4,1],
+  ["Morocco","🇲🇦","C","Ben",2,1,1,0,2,1], ["Haiti","🇭🇹","C","Joey",2,0,0,2,0,4],
 
-  ["USA","🇺🇸","D",null,1,1,0,0,4,1], ["Australia","🇦🇺","D","Ben",1,1,0,0,2,0],
-  ["Türkiye","🇹🇷","D","Joey",1,0,0,1,0,2], ["Paraguay","🇵🇾","D",null,1,0,0,1,1,4],
+  ["USA","🇺🇸","D",null,2,2,0,0,6,1], ["Australia","🇦🇺","D","Ben",2,1,0,1,2,2],
+  ["Türkiye","🇹🇷","D","Joey",2,0,0,2,0,3], ["Paraguay","🇵🇾","D",null,2,1,0,1,2,4],
 
   ["Germany","🇩🇪","E","Emily",1,1,0,0,7,1], ["Ivory Coast","🇨🇮","E",null,1,1,0,0,1,0],
   ["Ecuador","🇪🇨","E","Oscar",1,0,0,1,0,1], ["Curaçao","🇨🇼","E","Dad",1,0,0,1,1,7],
@@ -245,13 +245,13 @@ Object.keys(groups).sort().forEach(g=>{
 });
 
 const m0=managers[0], m1=managers[1], m2=managers[2], m3=managers[3];
-const dad=managers.find(m=>m.name==='Dad');
+const joey=managers.find(m=>m.name==='Joey');
 document.getElementById('note').innerHTML =
-  `<b>${m0.name} is back on top with ${m0.pts} points</b> and the best goal difference of anyone (${fmtGD(m0.gd)}). `+
-  `${m1.name} climbs to second after Canada's 6-0 demolition of Qatar, edging ${m2.name} on goal difference with both on ${m1.pts}. `+
-  `${m3.name} has surged to fourth on the back of two Mexico wins — and Mexico are already the first team through to the knockouts. `+
-  `${dad.name} is still on ${dad.pts} but his goal difference has cratered to ${fmtGD(dad.gd)} after shipping six to Canada and seven to Germany. `+
-  `As ever: this points league rewards spreading draws across five teams, but the sweepstake pays out on who owns the sides finishing <b>1st, 2nd and 3rd</b> — so one strong run matters more than a tidy table.`;
+  `<b>${m0.name} has gone top with ${m0.pts} points</b> — two Mexico wins plus Brazil's 3-0 dismantling of Haiti, with Mexico already safely into the knockouts. `+
+  `${m1.name} slips to second on ${m1.pts}, but still holds the best goal difference of anyone by a distance (${fmtGD(m1.gd)}). `+
+  `${m2.name} and ${m3.name} are locked together on ${m2.pts}, split only by goal difference. `+
+  `Spare a thought for ${joey.name} at the foot of the table — both Haiti and Türkiye were knocked out tonight, leaving only the Netherlands with a pulse. `+
+  `As always, the points league isn't the prize itself: Emily (Spain) and Luke (France) still own the strongest single contenders for the 1st, 2nd and 3rd payouts.`;
 </script>
 </body>
 </html>
