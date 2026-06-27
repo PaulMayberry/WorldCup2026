@@ -6,60 +6,61 @@
 <title>Family Sweepstake League — World Cup 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --pitch:#0a1f16; --pitch-2:#0d271b; --panel:#102a1e;
-    --line:#1c4332; --line-soft:#163528;
-    --ink:#f1f6f1; --muted:#86a596;
-    --gold:#f2c14e; --silver:#cfd8dc; --bronze:#cf8f5e;
-    --win:#3ab77a; --draw:#d9a94e; --loss:#c45d4c; --pending:#5e7a6c;
-    --qual:#2f8f63;
+    --bg:#eef2f7; --bg-2:#f6f9fc; --panel:#ffffff;
+    --line:#e1e8f1; --line-soft:#eef2f7;
+    --ink:#0c2a2b; --muted:#6a7c84;
+    --brand:#0050df; --brand-2:#84d2f8; --brand-ink:#003a9e; --cyan:#00e4ff; --coral:#ff7161;
+    --gold:#0050df; --silver:#5b93d6; --bronze:#84d2f8;
+    --win:#0050df; --draw:#84d2f8; --loss:#ff7161; --pending:#9fb0bb;
+    --qual:#84d2f8;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
   body{
     font-family:'Inter',system-ui,-apple-system,sans-serif;
     background:
-      radial-gradient(ellipse 120% 80% at 50% -10%, rgba(31,90,64,.45) 0%, transparent 60%),
-      linear-gradient(180deg,var(--pitch) 0%, var(--pitch-2) 100%);
+      radial-gradient(ellipse 120% 60% at 50% -5%, rgba(0,80,223,.07) 0%, transparent 55%),
+      var(--bg);
     background-attachment:fixed; color:var(--ink); line-height:1.5;
     padding:0 16px 64px; min-height:100vh;
   }
   .wrap{max-width:760px;margin:0 auto}
   header{padding:38px 0 24px;border-bottom:1px solid var(--line)}
-  .eyebrow{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.32em;
-    text-transform:uppercase;font-size:.72rem;color:var(--gold)}
-  h1{font-family:'Oswald',sans-serif;font-weight:700;line-height:.98;
-    font-size:clamp(2.3rem,8vw,3.6rem);letter-spacing:.01em;margin:.18em 0 .12em}
+  .eyebrow{font-family:'Poppins',sans-serif;font-weight:600;letter-spacing:.32em;
+    text-transform:uppercase;font-size:.72rem;color:var(--brand)}
+  h1{font-family:'Poppins',sans-serif;font-weight:800;line-height:.98;color:var(--brand);
+    font-size:clamp(2.3rem,8vw,3.6rem);letter-spacing:-.02em;margin:.18em 0 .12em}
   .sub{color:var(--muted);font-size:.95rem;max-width:54ch}
   .status{display:inline-flex;align-items:center;gap:8px;margin-top:16px;
     background:var(--panel);border:1px solid var(--line);border-radius:999px;
     padding:7px 14px;font-size:.8rem;color:var(--ink)}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--win)}
-  .seclabel{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.2em;
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan)}
+  .seclabel{font-family:'Poppins',sans-serif;text-transform:uppercase;letter-spacing:.2em;
     font-size:.78rem;color:var(--muted);margin:34px 2px 12px;display:flex;align-items:baseline;gap:10px}
   .seclabel span{height:1px;flex:1;background:var(--line)}
 
   .board{display:flex;flex-direction:column;gap:8px}
   .row{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .2s}
-  .row.open{border-color:var(--gold)}
+  .row.open{border-color:var(--brand)}
   .rowhead{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none}
-  .rank{font-family:'Oswald',sans-serif;font-weight:700;font-size:1.25rem;text-align:center;color:var(--muted)}
+  .rank{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.25rem;text-align:center;color:var(--muted)}
   .r1 .rank{color:var(--gold)} .r2 .rank{color:var(--silver)} .r3 .rank{color:var(--bronze)}
   .who{min-width:0}
-  .name{font-family:'Oswald',sans-serif;font-weight:600;font-size:1.18rem;letter-spacing:.01em}
+  .name{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.18rem;letter-spacing:.01em}
   .form{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
   .pip{width:13px;height:13px;border-radius:3px;flex:none}
   .pip.w{background:var(--win)} .pip.d{background:var(--draw)} .pip.l{background:var(--loss)}
   .ptsbox{text-align:right;display:flex;align-items:center;gap:12px}
-  .gd{font-family:'Oswald',sans-serif;font-size:.7rem;color:var(--muted);font-weight:500;min-width:34px;text-align:right;line-height:1.25}
+  .gd{font-family:'Poppins',sans-serif;font-size:.7rem;color:var(--muted);font-weight:500;min-width:34px;text-align:right;line-height:1.25}
   .gd b{color:var(--ink);font-weight:600;font-size:.95rem}
-  .pts{font-family:'Oswald',sans-serif;font-weight:700;font-size:2rem;line-height:1}
+  .pts{font-family:'Poppins',sans-serif;font-weight:700;font-size:2rem;line-height:1}
   .pts small{display:block;font-size:.58rem;letter-spacing:.18em;color:var(--muted);font-weight:500;text-align:right;margin-top:3px}
   .chev{color:var(--muted);font-size:.8rem;transition:transform .2s}
   .row.open .chev{transform:rotate(180deg)}
-  .teams{display:none;border-top:1px solid var(--line-soft);background:rgba(0,0,0,.16)}
+  .teams{display:none;border-top:1px solid var(--line-soft);background:var(--bg-2)}
   .row.open .teams{display:block}
   .team{display:grid;grid-template-columns:26px 1fr auto auto auto;align-items:center;gap:10px;
     padding:11px 16px;border-bottom:1px solid var(--line-soft);font-size:.92rem}
@@ -67,42 +68,62 @@
   .flag{font-size:1.2rem;line-height:1}
   .tname{font-weight:600;min-width:0}
   .trec{color:var(--muted);font-size:.8rem;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-  .tgd{font-family:'Oswald',sans-serif;font-size:.85rem;color:var(--muted);width:34px;text-align:right}
-  .tpts{font-family:'Oswald',sans-serif;font-weight:700;font-size:1.05rem;width:20px;text-align:center}
+  .tgd{font-family:'Poppins',sans-serif;font-size:.85rem;color:var(--muted);width:34px;text-align:right}
+  .tpts{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.05rem;width:20px;text-align:center}
   .tpts.w{color:var(--win)} .tpts.d{color:var(--draw)} .tpts.l{color:var(--loss)}
 
   .groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
   .grp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 14px 6px}
-  .grp h3{font-family:'Oswald',sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .grp h3{font-family:'Poppins',sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin-bottom:8px}
   table{width:100%;border-collapse:collapse;font-size:.84rem}
-  thead th{font-family:'Oswald',sans-serif;font-weight:500;color:var(--muted);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:0 0 7px}
+  thead th{font-family:'Poppins',sans-serif;font-weight:500;color:var(--muted);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:0 0 7px}
   thead th.tl{text-align:left}
   tbody td{padding:7px 0;border-top:1px solid var(--line-soft);text-align:center;font-variant-numeric:tabular-nums}
   tbody td.tl{text-align:left}
-  tr.q td{background:linear-gradient(90deg,rgba(47,143,99,.16),transparent 60%)}
-  .pos{color:var(--muted);width:16px;font-family:'Oswald',sans-serif}
-  tr.q .pos{color:var(--qual);font-weight:700}
+  .pos{color:var(--muted);width:16px;font-family:'Poppins',sans-serif}
+  .qual{--st:#1f9d57;--stbg:rgba(31,157,87,.11)}
+  .chance{--st:#e0a32e;--stbg:rgba(224,163,46,.15)}
+  .out{--st:#cf4f3f;--stbg:rgba(207,79,63,.09)}
+  tr.qual td,tr.chance td,tr.out td{background:var(--stbg)}
+  tr.qual td.pos,tr.chance td.pos,tr.out td.pos{box-shadow:inset 3px 0 0 var(--st)}
+  tr.out{opacity:.72}
+  .team.qual,.team.chance,.team.out{background:var(--stbg);box-shadow:inset 3px 0 0 var(--st)}
+  .team.out{opacity:.72}
+  .sdot{width:9px;height:9px;border-radius:50%;background:var(--st);flex:none;display:inline-block;margin-right:6px}
   .tcell{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
   .tcell .nm{font-weight:600;font-size:.9rem}
   .own{font-size:.62rem;font-weight:700;border:1px solid currentColor;border-radius:5px;padding:1px 5px;letter-spacing:.02em;white-space:nowrap}
   .own.undrawn{color:var(--pending);border-style:dashed;font-weight:500;font-style:italic}
-  td.pt{font-family:'Oswald',sans-serif;font-weight:700;color:var(--ink)}
+  td.pt{font-family:'Poppins',sans-serif;font-weight:700;color:var(--ink)}
   .gdpos{color:var(--win)} .gdneg{color:var(--loss)}
   .legend{display:flex;flex-wrap:wrap;gap:14px;margin:16px 2px 0;font-size:.78rem;color:var(--muted)}
   .legend span{display:inline-flex;align-items:center;gap:6px}
-  .qkey{width:12px;height:12px;border-radius:3px;background:var(--qual)}
+  .lg{width:12px;height:12px;border-radius:3px}
+  .lg.q{background:#1f9d57}.lg.c{background:#e0a32e}.lg.o{background:#cf4f3f}
   .note{margin-top:22px;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:14px;font-size:.86rem;color:var(--muted)}
   .note b{color:var(--ink);font-weight:600}
   footer{margin-top:26px;text-align:center;color:var(--muted);font-size:.74rem}
+  .row,.grp,.note,.status{box-shadow:0 1px 3px rgba(0,40,90,.05)}
+  .brandbar{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .logomark{width:26px;height:38px;border:2.5px solid var(--brand);border-radius:13px;
+    display:grid;place-items:center;color:var(--brand);font-weight:700;font-size:1.3rem;
+    line-height:1;font-family:'Poppins',sans-serif}
+  .wordmark{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.18rem;line-height:1.02;
+    color:var(--brand);letter-spacing:-.02em}
+  footer b{color:var(--brand);font-weight:700}
+  .r1 .rank,.r2 .rank,.r3 .rank{width:26px;height:26px;line-height:26px;border-radius:999px;margin:0 auto;font-size:.98rem}
+  .r1 .rank{background:var(--brand);color:#fff}
+  .r2 .rank{background:var(--brand-2);color:var(--brand)}
+  .r3 .rank{background:#dceafb;color:var(--brand)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="eyebrow">Mayberry Family Sweepstake</div>
+    <div class="eyebrow">Family World Cup Sweepstake 2026</div>
     <h1>The Group Table</h1>
     <p class="sub">Ranked by points, then goal difference. Tap a name to expand their five teams.</p>
-    <div class="status"><span class="dot"></span><span>Round 2 complete — every team has played 2 · updated 24 June</span></div>
+    <div class="status"><span class="dot"></span><span>Groups A–I finished, J/K/L today · updated 27 June</span></div>
   </header>
 
   <div class="seclabel">Family standings<span></span></div>
@@ -111,43 +132,45 @@
 
   <div class="seclabel">Group tables A–L<span></span></div>
   <div class="legend">
-    <span><span class="qkey"></span>Top 2 — automatic qualification</span>
-    <span>Owner shown beside each team · dashed = undrawn</span>
+    <span><span class="lg q"></span>Through to the last 32</span>
+    <span><span class="lg c"></span>Still in contention</span>
+    <span><span class="lg o"></span>Eliminated</span>
+    <span>Owner shown beside each team</span>
   </div>
   <div class="groups" id="groups" style="margin-top:14px"></div>
 
-  <footer>Group stage in progress · standings provisional · a bit of family fun</footer>
+  <footer>Family World Cup Sweepstake 2026 · a bit of fun</footer>
 </div>
 
 <script>
 // [name, flag, group, owner, played, won, drawn, lost, goalsFor, goalsAgainst]
 const T = [
-  ["Mexico","🇲🇽","A","Ella",2,2,0,0,3,0], ["South Korea","🇰🇷","A","Dad",2,1,0,1,2,2],
-  ["Czechia","🇨🇿","A","Mum",2,0,1,1,2,3], ["South Africa","🇿🇦","A","Ella",2,0,1,1,1,3],
+  ["Mexico","🇲🇽","A","Ella",3,3,0,0,6,0], ["South Korea","🇰🇷","A","Dad",3,1,0,2,2,3],
+  ["Czechia","🇨🇿","A","Mum",3,0,1,2,2,6], ["South Africa","🇿🇦","A","Ella",3,1,1,1,2,3],
 
-  ["Switzerland","🇨🇭","B","Emily",2,1,1,0,5,2], ["Bosnia","🇧🇦","B","Emily",2,0,1,1,2,5],
-  ["Canada","🇨🇦","B","Oscar",2,1,1,0,7,1], ["Qatar","🇶🇦","B","Dad",2,0,1,1,1,7],
+  ["Switzerland","🇨🇭","B","Emily",3,2,1,0,7,3], ["Bosnia","🇧🇦","B","Emily",3,1,1,1,5,6],
+  ["Canada","🇨🇦","B","Oscar",3,1,1,1,8,3], ["Qatar","🇶🇦","B","Dad",3,0,1,2,2,10],
 
-  ["Scotland","🏴󠁧󠁢󠁳󠁣󠁴󠁿","C","Oscar",2,1,0,1,1,1], ["Brazil","🇧🇷","C","Ella",2,1,1,0,4,1],
-  ["Morocco","🇲🇦","C","Ben",2,1,1,0,2,1], ["Haiti","🇭🇹","C","Joey",2,0,0,2,0,4],
+  ["Scotland","🏴󠁧󠁢󠁳󠁣󠁴󠁿","C","Oscar",3,1,0,2,1,4], ["Brazil","🇧🇷","C","Ella",3,2,1,0,7,1],
+  ["Morocco","🇲🇦","C","Ben",3,2,1,0,6,3], ["Haiti","🇭🇹","C","Joey",3,0,0,3,2,8],
 
-  ["USA","🇺🇸","D",null,2,2,0,0,6,1], ["Australia","🇦🇺","D","Ben",2,1,0,1,2,2],
-  ["Türkiye","🇹🇷","D","Joey",2,0,0,2,0,3], ["Paraguay","🇵🇾","D",null,2,1,0,1,2,4],
+  ["USA","🇺🇸","D",null,3,2,0,1,8,4], ["Australia","🇦🇺","D","Ben",3,1,1,1,2,2],
+  ["Türkiye","🇹🇷","D","Joey",3,1,0,2,3,5], ["Paraguay","🇵🇾","D",null,3,1,1,1,2,4],
 
-  ["Germany","🇩🇪","E","Emily",2,2,0,0,9,2], ["Ivory Coast","🇨🇮","E",null,2,1,0,1,2,2],
-  ["Ecuador","🇪🇨","E","Oscar",2,0,1,1,0,1], ["Curaçao","🇨🇼","E","Dad",2,0,1,1,1,7],
+  ["Germany","🇩🇪","E","Emily",3,2,0,1,10,4], ["Ivory Coast","🇨🇮","E",null,3,2,0,1,4,2],
+  ["Ecuador","🇪🇨","E","Oscar",3,1,1,1,2,2], ["Curaçao","🇨🇼","E","Dad",3,0,1,2,1,9],
 
-  ["Sweden","🇸🇪","F","Emily",2,1,0,1,6,6], ["Netherlands","🇳🇱","F","Joey",2,1,1,0,7,3],
-  ["Japan","🇯🇵","F","Mum",2,1,1,0,6,2], ["Tunisia","🇹🇳","F","Patrick",2,0,0,2,1,9],
+  ["Sweden","🇸🇪","F","Emily",3,1,1,1,7,7], ["Netherlands","🇳🇱","F","Joey",3,2,1,0,10,4],
+  ["Japan","🇯🇵","F","Mum",3,1,2,0,7,3], ["Tunisia","🇹🇳","F","Patrick",3,0,0,3,2,12],
 
-  ["Belgium","🇧🇪","G","Oscar",2,0,2,0,1,1], ["Egypt","🇪🇬","G","Ella",2,1,1,0,4,2],
-  ["Iran","🇮🇷","G","Ella",2,0,2,0,2,2], ["New Zealand","🇳🇿","G","Ben",2,0,1,1,3,5],
+  ["Belgium","🇧🇪","G","Oscar",3,1,2,0,6,2], ["Egypt","🇪🇬","G","Ella",3,1,2,0,5,3],
+  ["Iran","🇮🇷","G","Ella",3,0,3,0,3,3], ["New Zealand","🇳🇿","G","Ben",3,0,1,2,4,10],
 
-  ["Spain","🇪🇸","H","Emily",2,1,1,0,4,0], ["Cape Verde","🇨🇻","H","Mum",2,0,2,0,2,2],
-  ["Saudi Arabia","🇸🇦","H","Ben",2,0,1,1,1,5], ["Uruguay","🇺🇾","H","Luke",2,0,2,0,3,3],
+  ["Spain","🇪🇸","H","Emily",3,2,1,0,5,0], ["Cape Verde","🇨🇻","H","Mum",3,0,3,0,2,2],
+  ["Saudi Arabia","🇸🇦","H","Ben",3,0,2,1,1,5], ["Uruguay","🇺🇾","H","Luke",3,0,2,1,3,4],
 
-  ["Norway","🇳🇴","I","Mum",2,2,0,0,7,3], ["France","🇫🇷","I","Luke",2,2,0,0,6,1],
-  ["Senegal","🇸🇳","I","Ben",2,0,0,2,3,6], ["Iraq","🇮🇶","I","Joey",2,0,0,2,1,7],
+  ["Norway","🇳🇴","I","Mum",3,2,0,1,8,7], ["France","🇫🇷","I","Luke",3,3,0,0,10,2],
+  ["Senegal","🇸🇳","I","Ben",3,1,0,2,8,6], ["Iraq","🇮🇶","I","Joey",3,0,0,3,1,12],
 
   ["Argentina","🇦🇷","J","Dad",2,2,0,0,5,0], ["Austria","🇦🇹","J","Luke",2,1,0,1,3,3],
   ["Jordan","🇯🇴","J","Joey",2,0,0,2,2,5], ["Algeria","🇩🇿","J","Dad",2,1,0,1,2,4],
@@ -163,6 +186,20 @@ const T = [
 const ownerColors = {
   Luke:"#4ea8de", Emily:"#f2c14e", Oscar:"#e07a5f", Dad:"#c77dff", Ben:"#43aa8b",
   Ella:"#f48fb1", Mum:"#90be6d", Patrick:"#f9844a", Joey:"#9fb3c8"
+};
+
+// Qualification status: qual = through to last 32, chance = still possible, out = eliminated
+const qualStatus = {
+  Mexico:"qual","South Africa":"qual",Switzerland:"qual",Canada:"qual",Bosnia:"qual",
+  Brazil:"qual",Morocco:"qual",USA:"qual",Australia:"qual",Paraguay:"qual",
+  Germany:"qual","Ivory Coast":"qual",Ecuador:"qual",Netherlands:"qual",Japan:"qual",
+  Sweden:"qual",Belgium:"qual",Egypt:"qual",Spain:"qual","Cape Verde":"qual",
+  France:"qual",Norway:"qual",Senegal:"qual",Argentina:"qual",Colombia:"qual",
+  Portugal:"qual",England:"qual",Ghana:"qual",
+  "South Korea":"chance",Scotland:"chance",Iran:"chance",Austria:"chance",Algeria:"chance",
+  Jordan:"chance","DR Congo":"chance",Uzbekistan:"chance",Croatia:"chance",Panama:"chance",
+  Czechia:"out",Qatar:"out",Haiti:"out","Türkiye":"out","Curaçao":"out",Tunisia:"out",
+  "New Zealand":"out",Uruguay:"out","Saudi Arabia":"out",Iraq:"out"
 };
 
 const byOwner = {};
@@ -189,9 +226,9 @@ managers.forEach((m,i)=>{
   row.className='row r'+(i+1);
   const pips=pipRun('w',m.W)+pipRun('d',m.D)+pipRun('l',m.L);
   const teamRows=[...m.teams].sort((a,b)=>b.pts-a.pts||b.gd-a.gd).map(t=>`
-    <div class="team">
+    <div class="team ${qualStatus[t.name]||'chance'}">
       <span class="flag">${t.flag}</span>
-      <span class="tname">${t.name}</span>
+      <span class="tname"><span class="sdot"></span>${t.name}</span>
       <span class="trec">${t.w}-${t.d}-${t.l}</span>
       <span class="tgd">${fmtGD(t.gd)}</span>
       <span class="tpts ${teamCls(t)}">${t.pts}</span>
@@ -220,14 +257,14 @@ const groupsEl=document.getElementById('groups');
 Object.keys(groups).sort().forEach(g=>{
   const teams=groups[g].sort((a,b)=> b.pts-a.pts || b.gd-a.gd || b.gf-a.gf || a.name.localeCompare(b.name));
   const rows=teams.map((t,idx)=>{
-    const q = idx<2 ? 'q' : '';
+    const st = qualStatus[t.name]||'chance';
     const col = t.owner ? (ownerColors[t.owner]||'#86a596') : null;
     const chip = t.owner ? `<span class="own" style="color:${col}">${t.owner}</span>`
                          : `<span class="own undrawn">undrawn</span>`;
     const gdCls = t.gd>0?'gdpos':t.gd<0?'gdneg':'';
-    return `<tr class="${q}">
+    return `<tr class="${st}">
       <td class="pos">${idx+1}</td>
-      <td class="tl"><span class="tcell"><span class="flag" style="font-size:1rem">${t.flag}</span>
+      <td class="tl"><span class="tcell"><span class="sdot"></span><span class="flag" style="font-size:1rem">${t.flag}</span>
         <span class="nm">${t.name}</span>${chip}</span></td>
       <td>${t.mp}</td><td>${t.w}</td><td>${t.d}</td><td>${t.l}</td>
       <td class="${gdCls}">${fmtGD(t.gd)}</td>
@@ -246,11 +283,11 @@ Object.keys(groups).sort().forEach(g=>{
 
 const m0=managers[0], m1=managers[1], m2=managers[2], m3=managers[3];
 document.getElementById('note').innerHTML =
-  `<b>${m0.name} stays top on ${m0.pts} points</b> with the best goal difference of anyone (${fmtGD(m0.gd)}), Spain and Germany both safely through. `+
-  `${m1.name} holds second on ${m1.pts}. `+
-  `The surprise of the round is ${m2.name}, who has quietly climbed to third on ${m2.pts} — Norway, Japan and Croatia all winning — level with ${m3.name} but ahead on goal difference. `+
-  `With every team now having played twice, the final group games (24–27 June) decide who reaches the last 32. `+
-  `The prize race still leans to ${m0.name} (Spain) and ${m1.name} (Brazil), but ${m3.name}'s France and ${m2.name}'s revived hand are firmly in the mix.`;
+  `<b>${m0.name} and ${m1.name} are locked together on ${m0.pts} points at the top</b>, with ${m0.name} ahead only on goal difference (${fmtGD(m0.gd)} to ${fmtGD(m1.gd)}) after Spain won Group H and Brazil and Mexico cruise on. `+
+  `${m2.name} has climbed to third on ${m2.pts}, Belgium topping Group G, while ${m3.name}'s France finished with a perfect nine and a Dembélé hat-trick. `+
+  `Mum's Cape Verde completed a genuine fairytale to reach the last 32. `+
+  `Groups J, K and L finish today to complete the group stage and set the Round of 32. `+
+  `Once the bracket is locked, the prize race — ${m0.name} (Spain) versus ${m1.name} (Brazil) — comes into full focus.`;
 </script>
 </body>
 </html>
