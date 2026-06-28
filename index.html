@@ -102,6 +102,40 @@
   .lg.q{background:#1f9d57}.lg.c{background:#e0a32e}.lg.o{background:#cf4f3f}
   .note{margin-top:22px;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:14px;font-size:.86rem;color:var(--muted)}
   .note b{color:var(--ink);font-weight:600}
+  .h2h{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,40,90,.05)}
+  .h2h-pick{display:flex;align-items:center;gap:10px;justify-content:center}
+  .h2h-pick select{flex:1;max-width:190px;font:inherit;font-weight:600;color:var(--ink);background:var(--bg-2);
+    border:1px solid var(--line);border-radius:10px;padding:9px 12px;appearance:none;-webkit-appearance:none;text-align:center;cursor:pointer}
+  .vs{font-family:'Poppins',sans-serif;font-weight:700;color:var(--muted);font-size:.82rem}
+  .h2h-head{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin-top:14px}
+  .h2h-name{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.02rem;color:var(--brand);letter-spacing:-.01em}
+  .h2h-name.a{text-align:right}.h2h-name.b{text-align:left}
+  .h2h-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:9px 4px;border-top:1px solid var(--line-soft)}
+  .h2h-val{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.12rem;color:var(--muted)}
+  .h2h-val.a{text-align:right}.h2h-val.b{text-align:left}
+  .h2h-val.win{color:var(--brand)}
+  .h2h-lbl{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;min-width:86px}
+  .h2h-sum{text-align:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--line-soft);font-size:.86rem;color:var(--muted)}
+  .h2h-sum b{color:var(--ink);font-weight:600}
+  .h2h-mtitle{font-family:'Poppins',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);text-align:center;margin:14px 0 4px;padding-top:14px;border-top:1px solid var(--line-soft)}
+  .h2h-mkey{text-align:center;font-size:.7rem;color:var(--muted);margin-bottom:10px}
+  .h2h-mkey .k{font-weight:600;padding:1px 6px;border-radius:5px;margin-left:2px}
+  .h2h-mkey .k.w{background:rgba(31,157,87,.16);color:#177a44}
+  .h2h-mkey .k.d{background:rgba(224,163,46,.18);color:#9a6f12}
+  .h2h-mkey .k.l{background:rgba(207,79,63,.14);color:#a83a2c}
+  .mrow{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:9px 11px;
+    border-radius:10px;margin-bottom:6px;background:var(--stbg);box-shadow:inset 3px 0 0 var(--st)}
+  .mrow.win{--st:#1f9d57;--stbg:rgba(31,157,87,.11)}
+  .mrow.draw{--st:#e0a32e;--stbg:rgba(224,163,46,.15)}
+  .mrow.loss{--st:#cf4f3f;--stbg:rgba(207,79,63,.10)}
+  .mteam{display:flex;align-items:center;gap:6px;font-size:.82rem;font-weight:600;color:var(--ink)}
+  .mteam.b{justify-content:flex-end;text-align:right}
+  .mflag{font-size:1.05rem;flex:none}
+  .mscore{font-family:'Poppins',sans-serif;font-weight:700;font-size:1rem;color:var(--ink);white-space:nowrap}
+  .h2h-none{text-align:center;color:var(--muted);font-size:.84rem;margin:4px 0 2px}
+  .h2h-rec{text-align:center;font-size:.82rem;color:var(--muted);margin-top:8px}
+  .h2h-rec b{color:var(--ink);font-weight:600}
   footer{margin-top:26px;text-align:center;color:var(--muted);font-size:.74rem}
   .row,.grp,.note,.status{box-shadow:0 1px 3px rgba(0,40,90,.05)}
   .brandbar{display:flex;align-items:center;gap:12px;margin-bottom:18px}
@@ -123,17 +157,26 @@
     <div class="eyebrow">Family World Cup Sweepstake 2026</div>
     <h1>The Group Table</h1>
     <p class="sub">Ranked by points, then goal difference. Tap a name to expand their five teams.</p>
-    <div class="status"><span class="dot"></span><span>Groups A–I finished, J/K/L today · updated 27 June</span></div>
+    <div class="status"><span class="dot"></span><span>Group stage complete · Round of 32 set · updated 28 June</span></div>
   </header>
 
   <div class="seclabel">Family standings<span></span></div>
   <div class="board" id="board"></div>
   <div class="note" id="note"></div>
 
+  <div class="seclabel">Head-to-head<span></span></div>
+  <div class="h2h">
+    <div class="h2h-pick">
+      <select id="h2hA" aria-label="First player"></select>
+      <span class="vs">vs</span>
+      <select id="h2hB" aria-label="Second player"></select>
+    </div>
+    <div id="h2hBody"></div>
+  </div>
+
   <div class="seclabel">Group tables A–L<span></span></div>
   <div class="legend">
     <span><span class="lg q"></span>Through to the last 32</span>
-    <span><span class="lg c"></span>Still in contention</span>
     <span><span class="lg o"></span>Eliminated</span>
     <span>Owner shown beside each team</span>
   </div>
@@ -172,14 +215,14 @@ const T = [
   ["Norway","🇳🇴","I","Mum",3,2,0,1,8,7], ["France","🇫🇷","I","Luke",3,3,0,0,10,2],
   ["Senegal","🇸🇳","I","Ben",3,1,0,2,8,6], ["Iraq","🇮🇶","I","Joey",3,0,0,3,1,12],
 
-  ["Argentina","🇦🇷","J","Dad",2,2,0,0,5,0], ["Austria","🇦🇹","J","Luke",2,1,0,1,3,3],
-  ["Jordan","🇯🇴","J","Joey",2,0,0,2,2,5], ["Algeria","🇩🇿","J","Dad",2,1,0,1,2,4],
+  ["Argentina","🇦🇷","J","Dad",3,3,0,0,8,1], ["Austria","🇦🇹","J","Luke",3,1,1,1,6,6],
+  ["Jordan","🇯🇴","J","Joey",3,0,0,3,3,8], ["Algeria","🇩🇿","J","Dad",3,1,1,1,5,7],
 
-  ["Colombia","🇨🇴","K","Patrick",2,2,0,0,4,1], ["Portugal","🇵🇹","K","Patrick",2,1,1,0,6,1],
-  ["DR Congo","🇨🇩","K","Luke",2,0,1,1,1,2], ["Uzbekistan","🇺🇿","K","Patrick",2,0,0,2,1,8],
+  ["Colombia","🇨🇴","K","Patrick",3,2,1,0,4,1], ["Portugal","🇵🇹","K","Patrick",3,1,2,0,6,1],
+  ["DR Congo","🇨🇩","K","Luke",3,1,1,1,4,3], ["Uzbekistan","🇺🇿","K","Patrick",3,0,0,3,2,11],
 
-  ["England","🏴󠁧󠁢󠁥󠁮󠁧󠁿","L","Oscar",2,1,1,0,4,2], ["Ghana","🇬🇭","L","Luke",2,1,1,0,1,1],
-  ["Croatia","🇭🇷","L","Mum",2,1,0,1,3,4], ["Panama","🇵🇦","L","Patrick",2,0,0,2,0,3],
+  ["England","🏴󠁧󠁢󠁥󠁮󠁧󠁿","L","Oscar",3,2,1,0,6,2], ["Ghana","🇬🇭","L","Luke",3,1,1,1,2,2],
+  ["Croatia","🇭🇷","L","Mum",3,2,0,1,5,5], ["Panama","🇵🇦","L","Patrick",3,0,0,3,0,4],
 ].map(r=>({name:r[0],flag:r[1],group:r[2],owner:r[3],mp:r[4],w:r[5],d:r[6],l:r[7],
            gf:r[8],ga:r[9],pts:r[5]*3+r[6],gd:r[8]-r[9]}));
 
@@ -196,11 +239,41 @@ const qualStatus = {
   Sweden:"qual",Belgium:"qual",Egypt:"qual",Spain:"qual","Cape Verde":"qual",
   France:"qual",Norway:"qual",Senegal:"qual",Argentina:"qual",Colombia:"qual",
   Portugal:"qual",England:"qual",Ghana:"qual",
-  "South Korea":"chance",Scotland:"chance",Iran:"chance",Austria:"chance",Algeria:"chance",
-  Jordan:"chance","DR Congo":"chance",Uzbekistan:"chance",Croatia:"chance",Panama:"chance",
+  Austria:"qual",Algeria:"qual","DR Congo":"qual",Croatia:"qual",
+  "South Korea":"out",Scotland:"out",Iran:"out",Jordan:"out",Uzbekistan:"out",Panama:"out",
   Czechia:"out",Qatar:"out",Haiti:"out","Türkiye":"out","Curaçao":"out",Tunisia:"out",
   "New Zealand":"out",Uruguay:"out","Saudi Arabia":"out",Iraq:"out"
 };
+
+// Every group-stage match: [group, teamA, scoreA, teamB, scoreB]
+const F = [
+  ["A","Mexico",2,"South Africa",0],["A","South Korea",2,"Czechia",1],["A","Czechia",1,"South Africa",1],
+  ["A","Mexico",1,"South Korea",0],["A","Mexico",3,"Czechia",0],["A","South Africa",1,"South Korea",0],
+  ["B","Canada",1,"Bosnia",1],["B","Switzerland",1,"Qatar",1],["B","Switzerland",4,"Bosnia",1],
+  ["B","Canada",6,"Qatar",0],["B","Switzerland",2,"Canada",1],["B","Bosnia",3,"Qatar",1],
+  ["C","Brazil",1,"Morocco",1],["C","Scotland",1,"Haiti",0],["C","Morocco",1,"Scotland",0],
+  ["C","Brazil",3,"Haiti",0],["C","Brazil",3,"Scotland",0],["C","Morocco",4,"Haiti",2],
+  ["D","USA",4,"Paraguay",1],["D","Australia",2,"Türkiye",0],["D","USA",2,"Australia",0],
+  ["D","Paraguay",1,"Türkiye",0],["D","Türkiye",3,"USA",2],["D","Paraguay",0,"Australia",0],
+  ["E","Germany",7,"Curaçao",1],["E","Ivory Coast",1,"Ecuador",0],["E","Germany",2,"Ivory Coast",1],
+  ["E","Ecuador",0,"Curaçao",0],["E","Ivory Coast",2,"Curaçao",0],["E","Ecuador",2,"Germany",1],
+  ["F","Netherlands",2,"Japan",2],["F","Sweden",5,"Tunisia",1],["F","Netherlands",5,"Sweden",1],
+  ["F","Japan",4,"Tunisia",0],["F","Japan",1,"Sweden",1],["F","Netherlands",3,"Tunisia",1],
+  ["G","Belgium",1,"Egypt",1],["G","Iran",2,"New Zealand",2],["G","Egypt",3,"New Zealand",1],
+  ["G","Belgium",0,"Iran",0],["G","Egypt",1,"Iran",1],["G","Belgium",5,"New Zealand",1],
+  ["H","Spain",0,"Cape Verde",0],["H","Uruguay",1,"Saudi Arabia",1],["H","Spain",4,"Saudi Arabia",0],
+  ["H","Uruguay",2,"Cape Verde",2],["H","Spain",1,"Uruguay",0],["H","Cape Verde",0,"Saudi Arabia",0],
+  ["I","France",3,"Senegal",1],["I","Norway",4,"Iraq",1],["I","France",3,"Iraq",0],
+  ["I","Norway",3,"Senegal",2],["I","France",4,"Norway",1],["I","Senegal",5,"Iraq",0],
+  ["J","Argentina",3,"Algeria",0],["J","Austria",3,"Jordan",1],["J","Argentina",2,"Austria",0],
+  ["J","Algeria",2,"Jordan",1],["J","Argentina",3,"Jordan",1],["J","Austria",3,"Algeria",3],
+  ["K","Portugal",1,"DR Congo",1],["K","Colombia",3,"Uzbekistan",1],["K","Portugal",5,"Uzbekistan",0],
+  ["K","Colombia",1,"DR Congo",0],["K","Colombia",0,"Portugal",0],["K","DR Congo",3,"Uzbekistan",1],
+  ["L","England",4,"Croatia",2],["L","Ghana",1,"Panama",0],["L","England",0,"Ghana",0],
+  ["L","Croatia",1,"Panama",0],["L","England",2,"Panama",0],["L","Croatia",2,"Ghana",1]
+];
+const teamOwner = Object.fromEntries(T.map(t=>[t.name,t.owner]));
+const teamFlag  = Object.fromEntries(T.map(t=>[t.name,t.flag]));
 
 const byOwner = {};
 T.forEach(t=>{ if(!t.owner) return; (byOwner[t.owner] ||= []).push(t); });
@@ -251,6 +324,71 @@ managers.forEach((m,i)=>{
   board.appendChild(row);
 });
 
+// Head-to-head comparison
+(function(){
+  const selA=document.getElementById('h2hA'), selB=document.getElementById('h2hB');
+  const byName=Object.fromEntries(managers.map(m=>[m.name,m]));
+  const qCount=(m,s)=>m.teams.filter(t=>qualStatus[t.name]===s).length;
+  managers.forEach(m=>{ selA.add(new Option(m.name,m.name)); selB.add(new Option(m.name,m.name)); });
+  selA.selectedIndex=0; selB.selectedIndex=Math.min(1,managers.length-1);
+  function render(){
+    const a=byName[selA.value], b=byName[selB.value];
+    const rows=[
+      ['Points',a.pts,b.pts],
+      ['Goal diff',fmtGD(a.gd),fmtGD(b.gd),a.gd,b.gd],
+      ['Goals for',a.gf,b.gf],
+      ['Wins',a.W,b.W],
+      ['Teams through',qCount(a,'qual'),qCount(b,'qual')],
+      ['Still alive',qCount(a,'qual')+qCount(a,'chance'),qCount(b,'qual')+qCount(b,'chance')]
+    ];
+    let html=`<div class="h2h-head"><div class="h2h-name a">${a.name}</div><div class="h2h-lbl"></div><div class="h2h-name b">${b.name}</div></div>`;
+    rows.forEach(r=>{
+      const lbl=r[0], fa=r[1], fb=r[2], ca=r.length>3?r[3]:r[1], cb=r.length>3?r[4]:r[2];
+      const aw=ca>cb, bw=cb>ca;
+      html+=`<div class="h2h-row"><div class="h2h-val a ${aw?'win':''}">${fa}</div>`+
+            `<div class="h2h-lbl">${lbl}</div>`+
+            `<div class="h2h-val b ${bw?'win':''}">${fb}</div></div>`;
+    });
+    let msg;
+    if(a.name===b.name){ msg='Pick two different players to compare.'; }
+    else if(a.pts!==b.pts){ const w=a.pts>b.pts?a:b, d=Math.abs(a.pts-b.pts);
+      msg=`<b>${w.name}</b> leads by ${d} point${d>1?'s':''}.`; }
+    else if(a.gd!==b.gd){ const w=a.gd>b.gd?a:b;
+      msg=`Level on points — <b>${w.name}</b> edges it on goal difference.`; }
+    else { msg=`<b>${a.name}</b> and <b>${b.name}</b> are dead level.`; }
+    html+=`<div class="h2h-sum">${msg}</div>`;
+    if(a.name!==b.name){
+      const ms=F.filter(f=>{const o1=teamOwner[f[1]],o2=teamOwner[f[3]];
+        return (o1===a.name&&o2===b.name)||(o1===b.name&&o2===a.name);});
+      html+=`<div class="h2h-mtitle">Their teams' matches</div>`;
+      if(!ms.length){
+        html+=`<div class="h2h-none">None of ${a.name}'s and ${b.name}'s teams shared a group, so they never met.</div>`;
+      } else {
+        let w=0,dr=0,ls=0;
+        const mrows=ms.map(f=>{
+          let at,ats,bt,bts;
+          if(teamOwner[f[1]]===a.name){at=f[1];ats=f[2];bt=f[3];bts=f[4];}
+          else {at=f[3];ats=f[4];bt=f[1];bts=f[2];}
+          const res=ats>bts?'win':ats<bts?'loss':'draw';
+          if(res==='win')w++; else if(res==='loss')ls++; else dr++;
+          return `<div class="mrow ${res}">
+            <span class="mteam"><span class="mflag">${teamFlag[at]}</span>${at}</span>
+            <span class="mscore">${ats} – ${bts}</span>
+            <span class="mteam b">${bt}<span class="mflag">${teamFlag[bt]}</span></span>
+          </div>`;
+        }).join('');
+        html+=`<div class="h2h-mkey">Colours show ${a.name}'s result · <span class="k w">win</span> <span class="k d">draw</span> <span class="k l">loss</span></div>`+
+              mrows+
+              `<div class="h2h-rec"><b>${a.name}</b> ${w}W ${dr}D ${ls}L against <b>${b.name}</b>'s teams</div>`;
+      }
+    }
+    document.getElementById('h2hBody').innerHTML=html;
+  }
+  selA.addEventListener('change',render);
+  selB.addEventListener('change',render);
+  render();
+})();
+
 const groups={};
 T.forEach(t=>{ (groups[t.group] ||= []).push(t); });
 const groupsEl=document.getElementById('groups');
@@ -283,11 +421,10 @@ Object.keys(groups).sort().forEach(g=>{
 
 const m0=managers[0], m1=managers[1], m2=managers[2], m3=managers[3];
 document.getElementById('note').innerHTML =
-  `<b>${m0.name} and ${m1.name} are locked together on ${m0.pts} points at the top</b>, with ${m0.name} ahead only on goal difference (${fmtGD(m0.gd)} to ${fmtGD(m1.gd)}) after Spain won Group H and Brazil and Mexico cruise on. `+
-  `${m2.name} has climbed to third on ${m2.pts}, Belgium topping Group G, while ${m3.name}'s France finished with a perfect nine and a Dembélé hat-trick. `+
-  `Mum's Cape Verde completed a genuine fairytale to reach the last 32. `+
-  `Groups J, K and L finish today to complete the group stage and set the Round of 32. `+
-  `Once the bracket is locked, the prize race — ${m0.name} (Spain) versus ${m1.name} (Brazil) — comes into full focus.`;
+  `<b>${m0.name} and ${m1.name} finish the group stage locked together on ${m0.pts} points</b>, with ${m0.name} top on goal difference (${fmtGD(m0.gd)} to ${fmtGD(m1.gd)}) — and the only player with all five teams through to the last 32. `+
+  `${m2.name} and ${m3.name} are level on ${m2.pts} in third and fourth, ${m2.name} ahead on goal difference, after England won Group L and ${m3.name} saw Austria, DR Congo and Ghana all squeeze through on the final day. `+
+  `Dad surged up the table as Argentina finished on a perfect nine and Algeria slipped in as a best third-placed team. `+
+  `The group stage is complete and the Round of 32 is set — the prize race is now ${m0.name} (Spain) versus ${m1.name} (Brazil), with the knockouts to settle it.`;
 </script>
 </body>
 </html>
