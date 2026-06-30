@@ -129,7 +129,7 @@
     <div class="eyebrow">Gym Buddies · World Cup 2026</div>
     <h1>Knockout Sweepstake</h1>
     <p class="sub">Seven of us, 32 teams, one £70 pot. Last team standing pays out the most.</p>
-    <div class="status"><span class="dot"></span><span>Round of 32 · 4 of 16 played · updated 30 June</span></div>
+    <div class="status"><span class="dot"></span><span>Round of 32 · 6 of 16 played · updated 30 June</span></div>
   </header>
 
   <div class="seclabel">The £70 pot<span></span></div>
@@ -194,8 +194,8 @@ const ties = [
   {r:"R32",a:"Brazil",b:"Japan",d:"29 Jun",sa:2,sb:1},
   {r:"R32",a:"Germany",b:"Paraguay",d:"29 Jun",sa:1,sb:1,win:"Paraguay"},
   {r:"R32",a:"Netherlands",b:"Morocco",d:"29 Jun",sa:1,sb:1,win:"Morocco"},
-  {r:"R32",a:"Ivory Coast",b:"Norway",d:"30 Jun"},
-  {r:"R32",a:"France",b:"Sweden",d:"30 Jun"},
+  {r:"R32",a:"Ivory Coast",b:"Norway",d:"30 Jun",sa:1,sb:2},
+  {r:"R32",a:"France",b:"Sweden",d:"30 Jun",sa:3,sb:0},
   {r:"R32",a:"Mexico",b:"Ecuador",d:"30 Jun"},
   {r:"R32",a:"England",b:"DR Congo",d:"1 Jul"},
   {r:"R32",a:"Belgium",b:"Senegal",d:"1 Jul"},
@@ -206,7 +206,9 @@ const ties = [
   {r:"R32",a:"Australia",b:"Egypt",d:"3 Jul"},
   {r:"R32",a:"Argentina",b:"Cape Verde",d:"3 Jul"},
   {r:"R32",a:"Colombia",b:"Ghana",d:"3 Jul"},
-  {r:"R16",a:"Canada",b:"Morocco",d:"4 Jul"}
+  {r:"R16",a:"Canada",b:"Morocco",d:"4 Jul"},
+  {r:"R16",a:"Brazil",b:"Norway",d:"5 Jul"},
+  {r:"R16",a:"Paraguay",b:"France",d:"4 Jul"}
 ];
 
 const owner = Object.fromEntries(teams.map(t=>[t[0],t[2]]));
