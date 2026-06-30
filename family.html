@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Sweepstake League — World Cup 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef2f7; --bg-2:#f6f9fc; --panel:#ffffff;
+    --line:#e1e8f1; --line-soft:#eef2f7;
+    --ink:#0c2a2b; --muted:#6a7c84;
+    --brand:#0050df; --brand-2:#84d2f8; --brand-ink:#003a9e; --cyan:#00e4ff; --coral:#ff7161;
+    --gold:#0050df; --silver:#5b93d6; --bronze:#84d2f8;
+    --win:#0050df; --draw:#84d2f8; --loss:#ff7161; --pending:#9fb0bb;
+    --qual:#84d2f8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% -5%, rgba(0,80,223,.07) 0%, transparent 55%),
+      var(--bg);
+    background-attachment:fixed; color:var(--ink); line-height:1.5;
+    padding:0 16px 64px; min-height:100vh;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  header{padding:38px 0 24px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:'Poppins',sans-serif;font-weight:600;letter-spacing:.32em;
+    text-transform:uppercase;font-size:.72rem;color:var(--brand)}
+  h1{font-family:'Poppins',sans-serif;font-weight:800;line-height:.98;color:var(--brand);
+    font-size:clamp(2.3rem,8vw,3.6rem);letter-spacing:-.02em;margin:.18em 0 .12em}
+  .sub{color:var(--muted);font-size:.95rem;max-width:54ch}
+  .status{display:inline-flex;align-items:center;gap:8px;margin-top:16px;
+    background:var(--panel);border:1px solid var(--line);border-radius:999px;
+    padding:7px 14px;font-size:.8rem;color:var(--ink)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan)}
+  .seclabel{font-family:'Poppins',sans-serif;text-transform:uppercase;letter-spacing:.2em;
+    font-size:.78rem;color:var(--muted);margin:34px 2px 12px;display:flex;align-items:baseline;gap:10px}
+  .seclabel span{height:1px;flex:1;background:var(--line)}
+
+  .board{display:flex;flex-direction:column;gap:8px}
+  .row{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .2s}
+  .row.open{border-color:var(--brand)}
+  .rowhead{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none}
+  .rank{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.25rem;text-align:center;color:var(--muted)}
+  .r1 .rank{color:var(--gold)} .r2 .rank{color:var(--silver)} .r3 .rank{color:var(--bronze)}
+  .who{min-width:0}
+  .name{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.18rem;letter-spacing:.01em}
+  .form{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+  .pip{width:13px;height:13px;border-radius:3px;flex:none}
+  .pip.w{background:var(--win)} .pip.d{background:var(--draw)} .pip.l{background:var(--loss)}
+  .ptsbox{text-align:right;display:flex;align-items:center;gap:12px}
+  .gd{font-family:'Poppins',sans-serif;font-size:.7rem;color:var(--muted);font-weight:500;min-width:34px;text-align:right;line-height:1.25}
+  .gd b{color:var(--ink);font-weight:600;font-size:.95rem}
+  .pts{font-family:'Poppins',sans-serif;font-weight:700;font-size:2rem;line-height:1}
+  .pts small{display:block;font-size:.58rem;letter-spacing:.18em;color:var(--muted);font-weight:500;text-align:right;margin-top:3px}
+  .chev{color:var(--muted);font-size:.8rem;transition:transform .2s}
+  .row.open .chev{transform:rotate(180deg)}
+  .teams{display:none;border-top:1px solid var(--line-soft);background:var(--bg-2)}
+  .row.open .teams{display:block}
+  .team{display:grid;grid-template-columns:26px 1fr auto auto auto;align-items:center;gap:10px;
+    padding:11px 16px;border-bottom:1px solid var(--line-soft);font-size:.92rem}
+  .team:last-child{border-bottom:none}
+  .flag{font-size:1.2rem;line-height:1}
+  .tname{font-weight:600;min-width:0}
+  .trec{color:var(--muted);font-size:.8rem;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .tgd{font-family:'Poppins',sans-serif;font-size:.85rem;color:var(--muted);width:34px;text-align:right}
+  .tpts{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.05rem;width:20px;text-align:center}
+  .tpts.w{color:var(--win)} .tpts.d{color:var(--draw)} .tpts.l{color:var(--loss)}
+
+  .groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+  .grp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 14px 6px}
+  .grp h3{font-family:'Poppins',sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:.84rem}
+  thead th{font-family:'Poppins',sans-serif;font-weight:500;color:var(--muted);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:0 0 7px}
+  thead th.tl{text-align:left}
+  tbody td{padding:7px 0;border-top:1px solid var(--line-soft);text-align:center;font-variant-numeric:tabular-nums}
+  tbody td.tl{text-align:left}
+  .pos{color:var(--muted);width:16px;font-family:'Poppins',sans-serif}
+  .qual{--st:#1f9d57;--stbg:rgba(31,157,87,.11)}
+  .chance{--st:#e0a32e;--stbg:rgba(224,163,46,.15)}
+  .out{--st:#cf4f3f;--stbg:rgba(207,79,63,.09)}
+  tr.qual td,tr.chance td,tr.out td{background:var(--stbg)}
+  tr.qual td.pos,tr.chance td.pos,tr.out td.pos{box-shadow:inset 3px 0 0 var(--st)}
+  tr.out{opacity:.72}
+  .team.qual,.team.chance,.team.out{background:var(--stbg);box-shadow:inset 3px 0 0 var(--st)}
+  .team.out{opacity:.72}
+  .sdot{width:9px;height:9px;border-radius:50%;background:var(--st);flex:none;display:inline-block;margin-right:6px}
+  .tcell{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .tcell .nm{font-weight:600;font-size:.9rem}
+  .own{font-size:.62rem;font-weight:700;border:1px solid currentColor;border-radius:5px;padding:1px 5px;letter-spacing:.02em;white-space:nowrap}
+  .own.undrawn{color:var(--pending);border-style:dashed;font-weight:500;font-style:italic}
+  td.pt{font-family:'Poppins',sans-serif;font-weight:700;color:var(--ink)}
+  .gdpos{color:var(--win)} .gdneg{color:var(--loss)}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin:16px 2px 0;font-size:.78rem;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .lg{width:12px;height:12px;border-radius:3px}
+  .lg.q{background:#1f9d57}.lg.c{background:#e0a32e}.lg.o{background:#cf4f3f}
+  .note{margin-top:22px;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:14px;font-size:.86rem;color:var(--muted)}
+  .note b{color:var(--ink);font-weight:600}
+  .h2h{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,40,90,.05)}
+  .h2h-pick{display:flex;align-items:center;gap:10px;justify-content:center}
+  .h2h-pick select{flex:1;max-width:190px;font:inherit;font-weight:600;color:var(--ink);background:var(--bg-2);
+    border:1px solid var(--line);border-radius:10px;padding:9px 12px;appearance:none;-webkit-appearance:none;text-align:center;cursor:pointer}
+  .vs{font-family:'Poppins',sans-serif;font-weight:700;color:var(--muted);font-size:.82rem}
+  .h2h-head{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin-top:14px}
+  .h2h-name{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.02rem;color:var(--brand);letter-spacing:-.01em}
+  .h2h-name.a{text-align:right}.h2h-name.b{text-align:left}
+  .h2h-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:9px 4px;border-top:1px solid var(--line-soft)}
+  .h2h-val{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.12rem;color:var(--muted)}
+  .h2h-val.a{text-align:right}.h2h-val.b{text-align:left}
+  .h2h-val.win{color:var(--brand)}
+  .h2h-lbl{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;min-width:86px}
+  .h2h-sum{text-align:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--line-soft);font-size:.86rem;color:var(--muted)}
+  .h2h-sum b{color:var(--ink);font-weight:600}
+  .h2h-mtitle{font-family:'Poppins',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);text-align:center;margin:14px 0 4px;padding-top:14px;border-top:1px solid var(--line-soft)}
+  .h2h-mkey{text-align:center;font-size:.7rem;color:var(--muted);margin-bottom:10px}
+  .h2h-mkey .k{font-weight:600;padding:1px 6px;border-radius:5px;margin-left:2px}
+  .h2h-mkey .k.w{background:rgba(31,157,87,.16);color:#177a44}
+  .h2h-mkey .k.d{background:rgba(224,163,46,.18);color:#9a6f12}
+  .h2h-mkey .k.l{background:rgba(207,79,63,.14);color:#a83a2c}
+  .mrow{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:9px 11px;
+    border-radius:10px;margin-bottom:6px;background:var(--stbg);box-shadow:inset 3px 0 0 var(--st)}
+  .mrow.win{--st:#1f9d57;--stbg:rgba(31,157,87,.11)}
+  .mrow.draw{--st:#e0a32e;--stbg:rgba(224,163,46,.15)}
+  .mrow.loss{--st:#cf4f3f;--stbg:rgba(207,79,63,.10)}
+  .mteam{display:flex;align-items:center;gap:6px;font-size:.82rem;font-weight:600;color:var(--ink)}
+  .mteam.b{justify-content:flex-end;text-align:right}
+  .mflag{font-size:1.05rem;flex:none}
+  .mscore{font-family:'Poppins',sans-serif;font-weight:700;font-size:1rem;color:var(--ink);white-space:nowrap}
+  .h2h-none{text-align:center;color:var(--muted);font-size:.84rem;margin:4px 0 2px}
+  .h2h-rec{text-align:center;font-size:.82rem;color:var(--muted);margin-top:8px}
+  .h2h-rec b{color:var(--ink);font-weight:600}
+  footer{margin-top:26px;text-align:center;color:var(--muted);font-size:.74rem}
+  .row,.grp,.note,.status{box-shadow:0 1px 3px rgba(0,40,90,.05)}
+  .brandbar{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .logomark{width:26px;height:38px;border:2.5px solid var(--brand);border-radius:13px;
+    display:grid;place-items:center;color:var(--brand);font-weight:700;font-size:1.3rem;
+    line-height:1;font-family:'Poppins',sans-serif}
+  .wordmark{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.18rem;line-height:1.02;
+    color:var(--brand);letter-spacing:-.02em}
+  footer b{color:var(--brand);font-weight:700}
+  .r1 .rank,.r2 .rank,.r3 .rank{width:26px;height:26px;line-height:26px;border-radius:999px;margin:0 auto;font-size:.98rem}
+  .r1 .rank{background:var(--brand);color:#fff}
+  .r2 .rank{background:var(--brand-2);color:var(--brand)}
+  .r3 .rank{background:#dceafb;color:var(--brand)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Family World Cup Sweepstake 2026</div>
+    <h1>The Group Table</h1>
+    <p class="sub">Ranked by points, then goal difference. Tap a name to expand their five teams.</p>
+    <div class="status"><span class="dot"></span><span>Group stage complete · Round of 32 set · updated 28 June</span></div>
+  </header>
+
+  <div class="seclabel">Family standings<span></span></div>
+  <div class="board" id="board"></div>
+  <div class="note" id="note"></div>
+
+  <div class="seclabel">Head-to-head<span></span></div>
+  <div class="h2h">
+    <div class="h2h-pick">
+      <select id="h2hA" aria-label="First player"></select>
+      <span class="vs">vs</span>
+      <select id="h2hB" aria-label="Second player"></select>
+    </div>
+    <div id="h2hBody"></div>
+  </div>
+
+  <div class="seclabel">Group tables A–L<span></span></div>
+  <div class="legend">
+    <span><span class="lg q"></span>Through to the last 32</span>
+    <span><span class="lg o"></span>Eliminated</span>
+    <span>Owner shown beside each team</span>
+  </div>
+  <div class="groups" id="groups" style="margin-top:14px"></div>
+
+  <footer>Family World Cup Sweepstake 2026 · a bit of fun</footer>
+</div>
+
+<script>
+// [name, flag, group, owner, played, won, drawn, lost, goalsFor, goalsAgainst]
+const T = [
+  ["Mexico","🇲🇽","A","Ella",3,3,0,0,6,0], ["South Korea","🇰🇷","A","Dad",3,1,0,2,2,3],
+  ["Czechia","🇨🇿","A","Mum",3,0,1,2,2,6], ["South Africa","🇿🇦","A","Ella",3,1,1,1,2,3],
+
+  ["Switzerland","🇨🇭","B","Emily",3,2,1,0,7,3], ["Bosnia","🇧🇦","B","Emily",3,1,1,1,5,6],
+  ["Canada","🇨🇦","B","Oscar",3,1,1,1,8,3], ["Qatar","🇶🇦","B","Dad",3,0,1,2,2,10],
+
+  ["Scotland","🏴󠁧󠁢󠁳󠁣󠁴󠁿","C","Oscar",3,1,0,2,1,4], ["Brazil","🇧🇷","C","Ella",3,2,1,0,7,1],
+  ["Morocco","🇲🇦","C","Ben",3,2,1,0,6,3], ["Haiti","🇭🇹","C","Joey",3,0,0,3,2,8],
+
+  ["USA","🇺🇸","D",null,3,2,0,1,8,4], ["Australia","🇦🇺","D","Ben",3,1,1,1,2,2],
+  ["Türkiye","🇹🇷","D","Joey",3,1,0,2,3,5], ["Paraguay","🇵🇾","D",null,3,1,1,1,2,4],
+
+  ["Germany","🇩🇪","E","Emily",3,2,0,1,10,4], ["Ivory Coast","🇨🇮","E",null,3,2,0,1,4,2],
+  ["Ecuador","🇪🇨","E","Oscar",3,1,1,1,2,2], ["Curaçao","🇨🇼","E","Dad",3,0,1,2,1,9],
+
+  ["Sweden","🇸🇪","F","Emily",3,1,1,1,7,7], ["Netherlands","🇳🇱","F","Joey",3,2,1,0,10,4],
+  ["Japan","🇯🇵","F","Mum",3,1,2,0,7,3], ["Tunisia","🇹🇳","F","Patrick",3,0,0,3,2,12],
+
+  ["Belgium","🇧🇪","G","Oscar",3,1,2,0,6,2], ["Egypt","🇪🇬","G","Ella",3,1,2,0,5,3],
+  ["Iran","🇮🇷","G","Ella",3,0,3,0,3,3], ["New Zealand","🇳🇿","G","Ben",3,0,1,2,4,10],
+
+  ["Spain","🇪🇸","H","Emily",3,2,1,0,5,0], ["Cape Verde","🇨🇻","H","Mum",3,0,3,0,2,2],
+  ["Saudi Arabia","🇸🇦","H","Ben",3,0,2,1,1,5], ["Uruguay","🇺🇾","H","Luke",3,0,2,1,3,4],
+
+  ["Norway","🇳🇴","I","Mum",3,2,0,1,8,7], ["France","🇫🇷","I","Luke",3,3,0,0,10,2],
+  ["Senegal","🇸🇳","I","Ben",3,1,0,2,8,6], ["Iraq","🇮🇶","I","Joey",3,0,0,3,1,12],
+
+  ["Argentina","🇦🇷","J","Dad",3,3,0,0,8,1], ["Austria","🇦🇹","J","Luke",3,1,1,1,6,6],
+  ["Jordan","🇯🇴","J","Joey",3,0,0,3,3,8], ["Algeria","🇩🇿","J","Dad",3,1,1,1,5,7],
+
+  ["Colombia","🇨🇴","K","Patrick",3,2,1,0,4,1], ["Portugal","🇵🇹","K","Patrick",3,1,2,0,6,1],
+  ["DR Congo","🇨🇩","K","Luke",3,1,1,1,4,3], ["Uzbekistan","🇺🇿","K","Patrick",3,0,0,3,2,11],
+
+  ["England","🏴󠁧󠁢󠁥󠁮󠁧󠁿","L","Oscar",3,2,1,0,6,2], ["Ghana","🇬🇭","L","Luke",3,1,1,1,2,2],
+  ["Croatia","🇭🇷","L","Mum",3,2,0,1,5,5], ["Panama","🇵🇦","L","Patrick",3,0,0,3,0,4],
+].map(r=>({name:r[0],flag:r[1],group:r[2],owner:r[3],mp:r[4],w:r[5],d:r[6],l:r[7],
+           gf:r[8],ga:r[9],pts:r[5]*3+r[6],gd:r[8]-r[9]}));
+
+const ownerColors = {
+  Luke:"#4ea8de", Emily:"#f2c14e", Oscar:"#e07a5f", Dad:"#c77dff", Ben:"#43aa8b",
+  Ella:"#f48fb1", Mum:"#90be6d", Patrick:"#f9844a", Joey:"#9fb3c8"
+};
+
+// Qualification status: qual = through to last 32, chance = still possible, out = eliminated
+const qualStatus = {
+  Mexico:"qual","South Africa":"qual",Switzerland:"qual",Canada:"qual",Bosnia:"qual",
+  Brazil:"qual",Morocco:"qual",USA:"qual",Australia:"qual",Paraguay:"qual",
+  Germany:"qual","Ivory Coast":"qual",Ecuador:"qual",Netherlands:"qual",Japan:"qual",
+  Sweden:"qual",Belgium:"qual",Egypt:"qual",Spain:"qual","Cape Verde":"qual",
+  France:"qual",Norway:"qual",Senegal:"qual",Argentina:"qual",Colombia:"qual",
+  Portugal:"qual",England:"qual",Ghana:"qual",
+  Austria:"qual",Algeria:"qual","DR Congo":"qual",Croatia:"qual",
+  "South Korea":"out",Scotland:"out",Iran:"out",Jordan:"out",Uzbekistan:"out",Panama:"out",
+  Czechia:"out",Qatar:"out",Haiti:"out","Türkiye":"out","Curaçao":"out",Tunisia:"out",
+  "New Zealand":"out",Uruguay:"out","Saudi Arabia":"out",Iraq:"out"
+};
+
+// Every group-stage match: [group, teamA, scoreA, teamB, scoreB]
+const F = [
+  ["A","Mexico",2,"South Africa",0],["A","South Korea",2,"Czechia",1],["A","Czechia",1,"South Africa",1],
+  ["A","Mexico",1,"South Korea",0],["A","Mexico",3,"Czechia",0],["A","South Africa",1,"South Korea",0],
+  ["B","Canada",1,"Bosnia",1],["B","Switzerland",1,"Qatar",1],["B","Switzerland",4,"Bosnia",1],
+  ["B","Canada",6,"Qatar",0],["B","Switzerland",2,"Canada",1],["B","Bosnia",3,"Qatar",1],
+  ["C","Brazil",1,"Morocco",1],["C","Scotland",1,"Haiti",0],["C","Morocco",1,"Scotland",0],
+  ["C","Brazil",3,"Haiti",0],["C","Brazil",3,"Scotland",0],["C","Morocco",4,"Haiti",2],
+  ["D","USA",4,"Paraguay",1],["D","Australia",2,"Türkiye",0],["D","USA",2,"Australia",0],
+  ["D","Paraguay",1,"Türkiye",0],["D","Türkiye",3,"USA",2],["D","Paraguay",0,"Australia",0],
+  ["E","Germany",7,"Curaçao",1],["E","Ivory Coast",1,"Ecuador",0],["E","Germany",2,"Ivory Coast",1],
+  ["E","Ecuador",0,"Curaçao",0],["E","Ivory Coast",2,"Curaçao",0],["E","Ecuador",2,"Germany",1],
+  ["F","Netherlands",2,"Japan",2],["F","Sweden",5,"Tunisia",1],["F","Netherlands",5,"Sweden",1],
+  ["F","Japan",4,"Tunisia",0],["F","Japan",1,"Sweden",1],["F","Netherlands",3,"Tunisia",1],
+  ["G","Belgium",1,"Egypt",1],["G","Iran",2,"New Zealand",2],["G","Egypt",3,"New Zealand",1],
+  ["G","Belgium",0,"Iran",0],["G","Egypt",1,"Iran",1],["G","Belgium",5,"New Zealand",1],
+  ["H","Spain",0,"Cape Verde",0],["H","Uruguay",1,"Saudi Arabia",1],["H","Spain",4,"Saudi Arabia",0],
+  ["H","Uruguay",2,"Cape Verde",2],["H","Spain",1,"Uruguay",0],["H","Cape Verde",0,"Saudi Arabia",0],
+  ["I","France",3,"Senegal",1],["I","Norway",4,"Iraq",1],["I","France",3,"Iraq",0],
+  ["I","Norway",3,"Senegal",2],["I","France",4,"Norway",1],["I","Senegal",5,"Iraq",0],
+  ["J","Argentina",3,"Algeria",0],["J","Austria",3,"Jordan",1],["J","Argentina",2,"Austria",0],
+  ["J","Algeria",2,"Jordan",1],["J","Argentina",3,"Jordan",1],["J","Austria",3,"Algeria",3],
+  ["K","Portugal",1,"DR Congo",1],["K","Colombia",3,"Uzbekistan",1],["K","Portugal",5,"Uzbekistan",0],
+  ["K","Colombia",1,"DR Congo",0],["K","Colombia",0,"Portugal",0],["K","DR Congo",3,"Uzbekistan",1],
+  ["L","England",4,"Croatia",2],["L","Ghana",1,"Panama",0],["L","England",0,"Ghana",0],
+  ["L","Croatia",1,"Panama",0],["L","England",2,"Panama",0],["L","Croatia",2,"Ghana",1]
+];
+const teamOwner = Object.fromEntries(T.map(t=>[t.name,t.owner]));
+const teamFlag  = Object.fromEntries(T.map(t=>[t.name,t.flag]));
+
+const byOwner = {};
+T.forEach(t=>{ if(!t.owner) return; (byOwner[t.owner] ||= []).push(t); });
+const managers = Object.entries(byOwner).map(([name,teams])=>({
+  name, teams,
+  pts: teams.reduce((s,t)=>s+t.pts,0),
+  gd:  teams.reduce((s,t)=>s+t.gd,0),
+  gf:  teams.reduce((s,t)=>s+t.gf,0),
+  W:   teams.reduce((s,t)=>s+t.w,0),
+  D:   teams.reduce((s,t)=>s+t.d,0),
+  L:   teams.reduce((s,t)=>s+t.l,0)
+})).sort((a,b)=> b.pts-a.pts || b.gd-a.gd || b.gf-a.gf || a.name.localeCompare(b.name));
+
+const ord=["st","nd","rd"];
+const rankLabel=i=>{const n=i+1;return n+(ord[n-1]||"th")};
+const fmtGD=g=> (g>0?"+":"")+g;
+const teamCls=t=> t.w>t.l?"w":t.l>t.w?"l":"d";
+const pipRun=(cls,n)=>Array(n).fill(`<span class="pip ${cls}"></span>`).join('');
+
+const board=document.getElementById('board');
+managers.forEach((m,i)=>{
+  const row=document.createElement('div');
+  row.className='row r'+(i+1);
+  const pips=pipRun('w',m.W)+pipRun('d',m.D)+pipRun('l',m.L);
+  const teamRows=[...m.teams].sort((a,b)=>b.pts-a.pts||b.gd-a.gd).map(t=>`
+    <div class="team ${qualStatus[t.name]||'chance'}">
+      <span class="flag">${t.flag}</span>
+      <span class="tname"><span class="sdot"></span>${t.name}</span>
+      <span class="trec">${t.w}-${t.d}-${t.l}</span>
+      <span class="tgd">${fmtGD(t.gd)}</span>
+      <span class="tpts ${teamCls(t)}">${t.pts}</span>
+    </div>`).join('');
+  row.innerHTML=`
+    <div class="rowhead" role="button" tabindex="0" aria-expanded="false">
+      <div class="rank">${rankLabel(i)}</div>
+      <div class="who"><div class="name">${m.name}</div><div class="form">${pips}</div></div>
+      <div class="ptsbox">
+        <div class="gd">GD<br><b>${fmtGD(m.gd)}</b></div>
+        <div class="pts">${m.pts}<small>PTS</small></div>
+        <span class="chev">▼</span>
+      </div>
+    </div>
+    <div class="teams">${teamRows}</div>`;
+  const head=row.querySelector('.rowhead');
+  const toggle=()=>{const o=row.classList.toggle('open');head.setAttribute('aria-expanded',o);};
+  head.addEventListener('click',toggle);
+  head.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
+  board.appendChild(row);
+});
+
+// Head-to-head comparison
+(function(){
+  const selA=document.getElementById('h2hA'), selB=document.getElementById('h2hB');
+  const byName=Object.fromEntries(managers.map(m=>[m.name,m]));
+  const qCount=(m,s)=>m.teams.filter(t=>qualStatus[t.name]===s).length;
+  managers.forEach(m=>{ selA.add(new Option(m.name,m.name)); selB.add(new Option(m.name,m.name)); });
+  selA.selectedIndex=0; selB.selectedIndex=Math.min(1,managers.length-1);
+  function render(){
+    const a=byName[selA.value], b=byName[selB.value];
+    const rows=[
+      ['Points',a.pts,b.pts],
+      ['Goal diff',fmtGD(a.gd),fmtGD(b.gd),a.gd,b.gd],
+      ['Goals for',a.gf,b.gf],
+      ['Wins',a.W,b.W],
+      ['Teams through',qCount(a,'qual'),qCount(b,'qual')],
+      ['Still alive',qCount(a,'qual')+qCount(a,'chance'),qCount(b,'qual')+qCount(b,'chance')]
+    ];
+    let html=`<div class="h2h-head"><div class="h2h-name a">${a.name}</div><div class="h2h-lbl"></div><div class="h2h-name b">${b.name}</div></div>`;
+    rows.forEach(r=>{
+      const lbl=r[0], fa=r[1], fb=r[2], ca=r.length>3?r[3]:r[1], cb=r.length>3?r[4]:r[2];
+      const aw=ca>cb, bw=cb>ca;
+      html+=`<div class="h2h-row"><div class="h2h-val a ${aw?'win':''}">${fa}</div>`+
+            `<div class="h2h-lbl">${lbl}</div>`+
+            `<div class="h2h-val b ${bw?'win':''}">${fb}</div></div>`;
+    });
+    let msg;
+    if(a.name===b.name){ msg='Pick two different players to compare.'; }
+    else if(a.pts!==b.pts){ const w=a.pts>b.pts?a:b, d=Math.abs(a.pts-b.pts);
+      msg=`<b>${w.name}</b> leads by ${d} point${d>1?'s':''}.`; }
+    else if(a.gd!==b.gd){ const w=a.gd>b.gd?a:b;
+      msg=`Level on points — <b>${w.name}</b> edges it on goal difference.`; }
+    else { msg=`<b>${a.name}</b> and <b>${b.name}</b> are dead level.`; }
+    html+=`<div class="h2h-sum">${msg}</div>`;
+    if(a.name!==b.name){
+      const ms=F.filter(f=>{const o1=teamOwner[f[1]],o2=teamOwner[f[3]];
+        return (o1===a.name&&o2===b.name)||(o1===b.name&&o2===a.name);});
+      html+=`<div class="h2h-mtitle">Their teams' matches</div>`;
+      if(!ms.length){
+        html+=`<div class="h2h-none">None of ${a.name}'s and ${b.name}'s teams shared a group, so they never met.</div>`;
+      } else {
+        let w=0,dr=0,ls=0;
+        const mrows=ms.map(f=>{
+          let at,ats,bt,bts;
+          if(teamOwner[f[1]]===a.name){at=f[1];ats=f[2];bt=f[3];bts=f[4];}
+          else {at=f[3];ats=f[4];bt=f[1];bts=f[2];}
+          const res=ats>bts?'win':ats<bts?'loss':'draw';
+          if(res==='win')w++; else if(res==='loss')ls++; else dr++;
+          return `<div class="mrow ${res}">
+            <span class="mteam"><span class="mflag">${teamFlag[at]}</span>${at}</span>
+            <span class="mscore">${ats} – ${bts}</span>
+            <span class="mteam b">${bt}<span class="mflag">${teamFlag[bt]}</span></span>
+          </div>`;
+        }).join('');
+        html+=`<div class="h2h-mkey">Colours show ${a.name}'s result · <span class="k w">win</span> <span class="k d">draw</span> <span class="k l">loss</span></div>`+
+              mrows+
+              `<div class="h2h-rec"><b>${a.name}</b> ${w}W ${dr}D ${ls}L against <b>${b.name}</b>'s teams</div>`;
+      }
+    }
+    document.getElementById('h2hBody').innerHTML=html;
+  }
+  selA.addEventListener('change',render);
+  selB.addEventListener('change',render);
+  render();
+})();
+
+const groups={};
+T.forEach(t=>{ (groups[t.group] ||= []).push(t); });
+const groupsEl=document.getElementById('groups');
+Object.keys(groups).sort().forEach(g=>{
+  const teams=groups[g].sort((a,b)=> b.pts-a.pts || b.gd-a.gd || b.gf-a.gf || a.name.localeCompare(b.name));
+  const rows=teams.map((t,idx)=>{
+    const st = qualStatus[t.name]||'chance';
+    const col = t.owner ? (ownerColors[t.owner]||'#86a596') : null;
+    const chip = t.owner ? `<span class="own" style="color:${col}">${t.owner}</span>`
+                         : `<span class="own undrawn">undrawn</span>`;
+    const gdCls = t.gd>0?'gdpos':t.gd<0?'gdneg':'';
+    return `<tr class="${st}">
+      <td class="pos">${idx+1}</td>
+      <td class="tl"><span class="tcell"><span class="sdot"></span><span class="flag" style="font-size:1rem">${t.flag}</span>
+        <span class="nm">${t.name}</span>${chip}</span></td>
+      <td>${t.mp}</td><td>${t.w}</td><td>${t.d}</td><td>${t.l}</td>
+      <td class="${gdCls}">${fmtGD(t.gd)}</td>
+      <td class="pt">${t.pts}</td>
+    </tr>`;
+  }).join('');
+  const card=document.createElement('div');
+  card.className='grp';
+  card.innerHTML=`<h3>Group ${g}</h3>
+    <table>
+      <thead><tr><th></th><th class="tl">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+  groupsEl.appendChild(card);
+});
+
+const m0=managers[0], m1=managers[1], m2=managers[2], m3=managers[3];
+document.getElementById('note').innerHTML =
+  `<b>${m0.name} and ${m1.name} finish the group stage locked together on ${m0.pts} points</b>, with ${m0.name} top on goal difference (${fmtGD(m0.gd)} to ${fmtGD(m1.gd)}) — and the only player with all five teams through to the last 32. `+
+  `${m2.name} and ${m3.name} are level on ${m2.pts} in third and fourth, ${m2.name} ahead on goal difference, after England won Group L and ${m3.name} saw Austria, DR Congo and Ghana all squeeze through on the final day. `+
+  `Dad surged up the table as Argentina finished on a perfect nine and Algeria slipped in as a best third-placed team. `+
+  `The group stage is complete and the Round of 32 is set — the prize race is now ${m0.name} (Spain) versus ${m1.name} (Brazil), with the knockouts to settle it.`;
+</script>
+</body>
+</html>
