@@ -121,6 +121,21 @@
   .note{font-size:.82rem;color:var(--muted);background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px}
   .note b{color:var(--ink)}
   footer{margin-top:30px;text-align:center;color:var(--muted);font-size:.74rem}
+  .pcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(15,40,60,.05)}
+  .pchead{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.05rem;display:flex;align-items:center}
+  .pcnt{margin-left:auto;font-size:.72rem;font-weight:600;color:var(--muted)}
+  .pteam{border-radius:10px;padding:8px 11px;margin-top:9px;background:var(--stbg);box-shadow:inset 3px 0 0 var(--st)}
+  .pteam.in{--st:var(--in);--stbg:rgba(22,163,74,.08)}
+  .pteam.out{--st:var(--out);--stbg:rgba(210,96,78,.08)}
+  .pth{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.9rem}
+  .pth .fl{font-size:1.1rem}.pth .tn{flex:1}
+  .pteam.out .pth .tn{text-decoration:line-through;opacity:.75}
+  .pstatus{font-family:'Poppins',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.05em;padding:2px 7px;border-radius:999px;color:#fff}
+  .pteam.in .pstatus{background:var(--in)}.pteam.out .pstatus{background:var(--out)}
+  .mres{font-size:.79rem;color:var(--muted);padding:3px 0 0 24px}
+  .mres b{font-family:'Poppins',sans-serif}
+  .mres.win b{color:var(--in)}.mres.loss b{color:var(--out)}
+  .mres.soon,.mres.none{font-style:italic}
 </style>
 </head>
 <body>
@@ -129,8 +144,35 @@
     <div class="eyebrow">Gym Buddies · World Cup 2026</div>
     <h1>Knockout Sweepstake</h1>
     <p class="sub">Seven of us, 32 teams, one £70 pot. Last team standing pays out the most.</p>
-    <div class="status"><span class="dot"></span><span>Round of 32 · 11 of 16 played · updated 2 July</span></div>
+    <div class="status"><span class="dot"></span><span>Round of 32 · 14 of 16 played · updated 3 July</span></div>
   </header>
+
+  <div class="seclabel">Players, teams &amp; results<span></span></div>
+  <div class="legend"><span><span class="lg i"></span>Still in</span> <span><span class="lg o"></span>Out</span></div>
+  <div id="byplayer"></div>
+
+  <div class="seclabel">Standings<span></span></div>
+  <div id="standings"></div>
+  <div class="note">Goals are counted from the <b>Round of 32</b> onward (the teams were drawn for the knockouts). The £10 third-place prize goes to whoever owns the winner of the <b>third-place play-off</b>.</div>
+
+  <div class="seclabel">Knockout bracket<span></span></div>
+  <div class="legend">
+    <span><span class="lg i"></span>Still in</span>
+    <span><span class="lg o"></span>Eliminated</span>
+    <span>Colour chip = owner</span>
+  </div>
+  <div id="bracket"></div>
+
+  <div class="seclabel">Head-to-head<span></span></div>
+  <div class="note">Pick any two players from the dropdowns to compare them side by side — how many teams each still has in, their goals for and against, and every knockout match each team has played, colour-coded green for a win and red for a loss (upcoming ties are shown too). A bit of fun to see who comes out on top in a direct clash.</div>
+  <div class="card h2h">
+    <div class="h2h-pick">
+      <select id="h2hA" aria-label="First player"></select>
+      <span class="vs">vs</span>
+      <select id="h2hB" aria-label="Second player"></select>
+    </div>
+    <div id="h2hBody"></div>
+  </div>
 
   <div class="seclabel">The £70 pot<span></span></div>
   <div class="card pot">
@@ -144,31 +186,6 @@
 
   <div class="seclabel">Prize race<span></span></div>
   <div class="holders" id="holders"></div>
-
-  <div class="seclabel">Standings<span></span></div>
-  <div id="standings"></div>
-  <div class="note">Goals are counted from the <b>Round of 32</b> onward (the teams were drawn for the knockouts). The £10 third-place prize goes to whoever owns the winner of the <b>third-place play-off</b>.</div>
-
-  <div class="seclabel">Head-to-head<span></span></div>
-  <div class="card h2h">
-    <div class="h2h-pick">
-      <select id="h2hA" aria-label="First player"></select>
-      <span class="vs">vs</span>
-      <select id="h2hB" aria-label="Second player"></select>
-    </div>
-    <div id="h2hBody"></div>
-  </div>
-
-  <div class="seclabel">Knockout bracket<span></span></div>
-  <div class="legend">
-    <span><span class="lg i"></span>Still in</span>
-    <span><span class="lg o"></span>Eliminated</span>
-    <span>Colour chip = owner</span>
-  </div>
-  <div id="bracket"></div>
-
-  <div class="seclabel">Who owns what<span></span></div>
-  <div class="roster" id="roster"></div>
 
   <footer>Gym Buddies World Cup Sweepstake 2026 · last team standing takes the lot</footer>
 </div>
@@ -201,16 +218,17 @@ const ties = [
   {r:"R32",a:"Belgium",b:"Senegal",d:"1 Jul",sa:3,sb:2},
   {r:"R32",a:"USA",b:"Bosnia",d:"1 Jul",sa:2,sb:0},
   {r:"R32",a:"Spain",b:"Austria",d:"2 Jul",sa:3,sb:0},
-  {r:"R32",a:"Portugal",b:"Croatia",d:"2 Jul"},
-  {r:"R32",a:"Switzerland",b:"Algeria",d:"2 Jul"},
-  {r:"R32",a:"Australia",b:"Egypt",d:"3 Jul"},
+  {r:"R32",a:"Portugal",b:"Croatia",d:"2 Jul",sa:2,sb:1},
+  {r:"R32",a:"Switzerland",b:"Algeria",d:"2 Jul",sa:2,sb:0},
+  {r:"R32",a:"Australia",b:"Egypt",d:"3 Jul",sa:1,sb:1,win:"Egypt"},
   {r:"R32",a:"Argentina",b:"Cape Verde",d:"3 Jul"},
   {r:"R32",a:"Colombia",b:"Ghana",d:"3 Jul"},
   {r:"R16",a:"Canada",b:"Morocco",d:"4 Jul"},
   {r:"R16",a:"Brazil",b:"Norway",d:"5 Jul"},
   {r:"R16",a:"Paraguay",b:"France",d:"4 Jul"},
   {r:"R16",a:"Mexico",b:"England",d:"5 Jul"},
-  {r:"R16",a:"Belgium",b:"USA",d:"6 Jul"}
+  {r:"R16",a:"Belgium",b:"USA",d:"6 Jul"},
+  {r:"R16",a:"Spain",b:"Portugal",d:"6 Jul"}
 ];
 
 const owner = Object.fromEntries(teams.map(t=>[t[0],t[2]]));
@@ -346,16 +364,24 @@ RORDER.forEach(r=>{
 });
 document.getElementById('bracket').innerHTML = bhtml;
 
-// ---- roster ----
-const stageNote = n => stat[n].out ? 'out' : 'in';
-document.getElementById('roster').innerHTML = players.map(p=>{
-  const ts = teams.filter(t=>t[2]===p);
-  const a = aggBy[p];
-  const rows = ts.map(t=>{
-    const out = stat[t[0]].out;
-    return `<div class="rteam ${out?'out':''}"><span class="fl">${t[1]}</span><span class="tn">${t[0]}</span><span class="rdot ${out?'out':'in'}"></span></div>`;
+// ---- players, teams & results ----
+const RSHORT={R32:"R32",R16:"R16",QF:"QF",SF:"SF","3P":"3rd place",F:"Final"};
+const RANK={R32:0,R16:1,QF:2,SF:3,"3P":4,F:5};
+function teamMatches(name){
+  return ties.filter(t=>t.a===name||t.b===name).sort((x,y)=>RANK[x.r]-RANK[y.r]).map(t=>{
+    const home=t.a===name, opp=home?t.b:t.a, gf=home?t.sa:t.sb, ga=home?t.sb:t.sa;
+    if(gf==null) return `<div class="mres soon">${RSHORT[t.r]} · vs ${flag[opp]||''} ${opp}${t.d?` · ${t.d}`:''}</div>`;
+    const won=winnerOf(t)===name, pens=(t.sa===t.sb);
+    return `<div class="mres ${won?'win':'loss'}">${RSHORT[t.r]} · ${gf}–${ga} vs ${flag[opp]||''} ${opp}${pens?' (pens)':''} · <b>${won?'W':'L'}</b></div>`;
   }).join('');
-  return `<div class="rcard"><div class="rhead"><span class="nm">${pdot(p)}${p}</span><span class="ct">${a.tin}/${a.total} in</span></div>${rows}</div>`;
+}
+document.getElementById('byplayer').innerHTML = [...agg].sort((a,b)=> b.tin-a.tin || b.gf-a.gf || a.ga-b.ga || a.name.localeCompare(b.name)).map(a=>{
+  const ts=teams.filter(t=>t[2]===a.name).slice().sort((x,y)=>(stat[x[0]].out?1:0)-(stat[y[0]].out?1:0));
+  const blocks=ts.map(t=>{
+    const out=stat[t[0]].out, ms=teamMatches(t[0]);
+    return `<div class="pteam ${out?'out':'in'}"><div class="pth"><span class="fl">${t[1]}</span><span class="tn">${t[0]}</span><span class="pstatus">${out?'OUT':'IN'}</span></div>${ms||'<div class="mres none">Eliminated in the group stage</div>'}</div>`;
+  }).join('');
+  return `<div class="pcard"><div class="pchead">${pdot(a.name)}${a.name}<span class="pcnt">${a.tin}/${a.total} still in</span></div>${blocks}</div>`;
 }).join('');
 </script>
 </body>
