@@ -134,7 +134,7 @@
     <div class="eyebrow">Family · World Cup 2026</div>
     <h1>Knockout Stage</h1>
     <p class="sub">Nine of us and the Last 32. Group stage is done — now it's win or go home, and the dash for the podium is on.</p>
-    <div class="status"><span class="dot"></span><span>Round of 16 · 5 of 8 played · updated 6 July</span></div>
+    <div class="status"><span class="dot"></span><span>Round of 16 complete · Quarter-finals start today · updated 9 July</span></div>
   </header>
 
   <div class="seclabel">Players, teams &amp; results<span></span></div>
@@ -221,12 +221,14 @@ const ties = [
   {r:"R16",a:"Brazil",b:"Norway",d:"5 Jul",sa:1,sb:2},
   {r:"R16",a:"Paraguay",b:"France",d:"4 Jul",sa:0,sb:1},
   {r:"R16",a:"Mexico",b:"England",d:"5 Jul",sa:2,sb:3},
-  {r:"R16",a:"Belgium",b:"USA",d:"6 Jul"},
+  {r:"R16",a:"Belgium",b:"USA",d:"6 Jul",sa:4,sb:1},
   {r:"R16",a:"Spain",b:"Portugal",d:"6 Jul",sa:1,sb:0},
-  {r:"R16",a:"Argentina",b:"Egypt",d:"7 Jul"},
-  {r:"R16",a:"Switzerland",b:"Colombia",d:"7 Jul"},
+  {r:"R16",a:"Argentina",b:"Egypt",d:"7 Jul",sa:3,sb:2},
+  {r:"R16",a:"Switzerland",b:"Colombia",d:"7 Jul",sa:0,sb:0,win:"Switzerland"},
   {r:"QF",a:"Morocco",b:"France",d:"9 Jul"},
-  {r:"QF",a:"Norway",b:"England",d:"11 Jul"}
+  {r:"QF",a:"Norway",b:"England",d:"11 Jul"},
+  {r:"QF",a:"Spain",b:"Belgium",d:"10 Jul"},
+  {r:"QF",a:"Argentina",b:"Switzerland",d:"11 Jul"}
 ];
 
 const owner = Object.fromEntries(teams.map(t=>[t[0],t[2]]));
