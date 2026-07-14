@@ -133,7 +133,7 @@
   <header>
     <div class="eyebrow">Family · World Cup 2026</div>
     <h1>Knockout Stage</h1>
-    <p class="sub">Nine of us and the Last 32. Group stage is done — now it's win or go home, and the dash for the podium is on.</p>
+    <p class="sub">Nine of us, and we're down to <span id="stagephrase">the knockouts</span> — win or go home, and the dash for the podium is on.</p>
     <div class="status"><span class="dot"></span><span>Quarter-finals complete · Semi-finals 14–15 July · updated 13 July</span></div>
   </header>
 
@@ -355,6 +355,15 @@ document.getElementById('byplayer').innerHTML = [...agg].sort((a,b)=> b.tin-a.ti
   }).join('');
   return `<div class="pcard"><div class="pchead">${pdot(a.name)}${a.name}<span class="pcnt">${a.tin}/${a.total} still in</span></div>${blocks}</div>`;
 }).join('');
+
+// ---- dynamic stage phrase in the intro ----
+(function(){
+  const order=[["F","the final"],["SF","the semi-finals"],["QF","the quarter-finals"],["R16","the last 16"],["R32","the last 32"]];
+  const present=new Set(ties.map(t=>t.r));
+  let phrase="the knockouts";
+  for(const [r,txt] of order){ if(present.has(r)){ phrase=txt; break; } }
+  const el=document.getElementById("stagephrase"); if(el) el.textContent=phrase;
+})();
 </script>
 </body>
 </html>
