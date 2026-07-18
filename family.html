@@ -40,6 +40,7 @@
   .pemoji{font-size:1.2rem;width:24px;text-align:center;flex:none}
   .pdesc{flex:1;font-size:.9rem}
   .pdesc b{font-weight:600}
+  .pamt{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.02rem;color:var(--brand)}
 
   .holders{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
   .hcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(15,40,60,.05)}
@@ -134,7 +135,7 @@
     <div class="eyebrow">Family · World Cup 2026</div>
     <h1>Knockout Stage</h1>
     <p class="sub">Nine of us, and we're down to <span id="stagephrase">the knockouts</span> — win or go home, and the dash for the podium is on.</p>
-    <div class="status"><span class="dot"></span><span>Quarter-finals complete · Semi-finals 14–15 July · updated 13 July</span></div>
+    <div class="status"><span class="dot"></span><span>Semi-finals complete · Final Sun 19 Jul · updated 16 July</span></div>
   </header>
 
   <div class="seclabel">Players, teams &amp; results<span></span></div>
@@ -143,7 +144,7 @@
 
   <div class="seclabel">Standings<span></span></div>
   <div id="standings"></div>
-  <div class="note"><b>Joey</b> had all five of his teams knocked out in the group stage and the Round of 32, so he's been given the three undrawn teams — <b>USA, Paraguay and Ivory Coast</b> — to keep him in the hunt. Goals are counted from the <b>Round of 32</b> onward and shown for interest; the prizes go to whoever owns the teams that finish 1st, 2nd and 3rd.</div>
+  <div class="note"><b>Joey</b> had all five of his teams knocked out in the group stage and the Round of 32, so he's been given the three undrawn teams — <b>USA, Paraguay and Ivory Coast</b> — to keep him in the hunt. Goals are counted from the <b>Round of 32</b> onward and shown for interest; the top two prizes go to whoever owns the finalists (£25 winner, £15 runner-up), and £5 goes to whoever's teams took the <b>fewest points in the group stage</b>.</div>
 
   <div class="seclabel">Knockout bracket<span></span></div>
   <div class="legend">
@@ -166,10 +167,10 @@
 
   <div class="seclabel">The prizes<span></span></div>
   <div class="card pot">
-    <div class="pot-top"><h2>How it pays out</h2><span class="tag">top 3 at the tournament</span></div>
-    <div class="pline"><span class="pemoji">🥇</span><span class="pdesc">Owns the <b>World Cup winner</b></span></div>
-    <div class="pline"><span class="pemoji">🥈</span><span class="pdesc">Owns the <b>runner-up</b></span></div>
-    <div class="pline"><span class="pemoji">🥉</span><span class="pdesc">Owns the <b>third-place team</b></span></div>
+    <div class="pot-top"><h2>How it pays out</h2><span class="tag">£45 pot</span></div>
+    <div class="pline"><span class="pemoji">🥇</span><span class="pdesc">Owns the <b>World Cup winner</b></span><span class="pamt">£25</span></div>
+    <div class="pline"><span class="pemoji">🥈</span><span class="pdesc">Owns the <b>runner-up</b></span><span class="pamt">£15</span></div>
+    <div class="pline"><span class="pemoji">🥄</span><span class="pdesc"><b>Fewest</b> group-stage points</span><span class="pamt">£5</span></div>
   </div>
 
   <div class="seclabel">Prize race<span></span></div>
@@ -229,8 +230,10 @@ const ties = [
   {r:"QF",a:"Norway",b:"England",d:"11 Jul",sa:1,sb:2},
   {r:"QF",a:"Spain",b:"Belgium",d:"10 Jul",sa:2,sb:1},
   {r:"QF",a:"Argentina",b:"Switzerland",d:"11 Jul",sa:3,sb:1},
-  {r:"SF",a:"France",b:"Spain",d:"14 Jul"},
-  {r:"SF",a:"England",b:"Argentina",d:"15 Jul"}
+  {r:"SF",a:"France",b:"Spain",d:"14 Jul",sa:0,sb:2},
+  {r:"SF",a:"England",b:"Argentina",d:"15 Jul",sa:1,sb:2},
+  {r:"3P",a:"France",b:"England",d:"18 Jul"},
+  {r:"F",a:"Spain",b:"Argentina",d:"19 Jul"}
 ];
 
 const owner = Object.fromEntries(teams.map(t=>[t[0],t[2]]));
@@ -263,6 +266,10 @@ const finalT = ties.find(t=>t.r==="F" && t.sa!=null);
 const runnerTeam = finalT ? (winnerOf(finalT)===finalT.a?finalT.b:finalT.a) : null;
 const thirdT = ties.find(t=>t.r==="3P" && t.sa!=null);
 const thirdTeam = thirdT ? winnerOf(thirdT) : null;
+// group-stage points (fixed final group-stage totals) — £5 wooden spoon
+const groupPts = {Ella:28,Emily:28,Luke:23,Oscar:23,Mum:21,Dad:18,Ben:17,Patrick:12,Joey:10};
+const minGP = Math.min(...Object.values(groupPts));
+const spoon = Object.keys(groupPts).filter(p=>groupPts[p]===minGP);
 
 const chip = o => `<span class="ochip" style="background:${colors[o]}">${o}</span>`;
 const pdot = o => `<span class="pchip" style="background:${colors[o]}"></span>`;
@@ -272,8 +279,12 @@ function holderCard(emoji,lbl,teamName){
   if(teamName){ who=`<div class="who">${pdot(owner[teamName])}${owner[teamName]}</div>`; det=`<div class="det">${flag[teamName]} ${teamName}</div>`; }
   return `<div class="hcard"><div class="lbl">${emoji} ${lbl}</div>${who}${det}</div>`;
 }
+function spoonCard(emoji,lbl,names,detail){
+  const who=`<div class="who">${names.map(n=>pdot(n)+n).join(' · ')}</div>`;
+  return `<div class="hcard"><div class="lbl">${emoji} ${lbl}</div>${who}<div class="det">${detail}</div></div>`;
+}
 document.getElementById('holders').innerHTML =
-  holderCard("🥇","Winner",champTeam)+holderCard("🥈","Runner-up",runnerTeam)+holderCard("🥉","Third place",thirdTeam);
+  holderCard("🥇","Winner · £25",champTeam)+holderCard("🥈","Runner-up · £15",runnerTeam)+spoonCard("🥄","Fewest group pts · £5",spoon,minGP+" pts"+(spoon.length>1?" (tied)":""));
 
 // Just for fun: whose teams have scored / conceded most (knockout goals)
 function leaders(key){ const m=Math.max(...agg.map(a=>a[key])); return m>0?agg.filter(a=>a[key]===m).map(a=>a.name):null; }

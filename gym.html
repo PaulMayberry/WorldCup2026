@@ -144,7 +144,7 @@
     <div class="eyebrow">Gym Buddies · World Cup 2026</div>
     <h1>Knockout Sweepstake</h1>
     <p class="sub">Seven of us, one £70 pot, and we're down to <span id="stagephrase">the knockouts</span>. Last team standing pays out the most.</p>
-    <div class="status"><span class="dot"></span><span>Quarter-finals complete · Semi-finals 14–15 July · updated 13 July</span></div>
+    <div class="status"><span class="dot"></span><span>Semi-finals complete · Final Sun 19 Jul · updated 16 July</span></div>
   </header>
 
   <div class="seclabel">Players, teams &amp; results<span></span></div>
@@ -235,8 +235,10 @@ const ties = [
   {r:"QF",a:"Norway",b:"England",d:"11 Jul",sa:1,sb:2},
   {r:"QF",a:"Spain",b:"Belgium",d:"10 Jul",sa:2,sb:1},
   {r:"QF",a:"Argentina",b:"Switzerland",d:"11 Jul",sa:3,sb:1},
-  {r:"SF",a:"France",b:"Spain",d:"14 Jul"},
-  {r:"SF",a:"England",b:"Argentina",d:"15 Jul"}
+  {r:"SF",a:"France",b:"Spain",d:"14 Jul",sa:0,sb:2},
+  {r:"SF",a:"England",b:"Argentina",d:"15 Jul",sa:1,sb:2},
+  {r:"3P",a:"France",b:"England",d:"18 Jul"},
+  {r:"F",a:"Spain",b:"Argentina",d:"19 Jul"}
 ];
 
 const owner = Object.fromEntries(teams.map(t=>[t[0],t[2]]));
