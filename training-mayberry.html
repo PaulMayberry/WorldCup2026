@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Training Record — Mayberry Pharmacy</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Training">
+<meta name="theme-color" content="#0050DF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACa0lEQVR42u3dq1UDURiFUcJKHZSBogWiEVhKoApKwCLwdJGqcDG8BPd5/v0VgJjZnLnDWiSHm7vTlfRd1y6B4BAcgkNwCA7BITgEh+AQHBIcgkNwCA7BITgEh+AQHIJDgkNwCA7BITgEh+AQHIJDcEhwCA7BITgEh+AQHIJDcAgOwSHBITgEh+AQHIJDcAgOwSE4JDg0Fsf549UFTerY9sddfNzeP7m4cFAS26HVlw7/+UyhxHLYEjgogYMSZ45VXmIpsRy2pNjbStsJsSWBOCiBgxI4KIFj1qmTEjgGKUEkCgclcMxRgkgaDkrgmKAEkUAclMBBCRzrKUEkE4chgcOQwGFI4DAkcBgSOOopKQWlCo4eSuKtlMPRiUgklKI4eivJsFIdxwAi+0KBY7SSjazAMZPI4lDgWEjJalbgsChw7AxllhI4drIyWAkcXozhCLXSVQkcIVB6KIEjzUpDJXDEQvm/kqO7skiXe7nOp4RbjswtafJwsRy2BA5K4KDEmUO/nUtavc1aDlsCByUeK2qYLwBM6/HlwWNFXUDAAYQzR2EQb8/vlgOIjsEBBBxAOHNA0PDYYTmqzAAc1QU0eUmBI+e3vy0IOLY30Q8EHBYCDiDgCHt9mAuiCo5lQaxz+wvhWErDLgKSccwFESAgCscUDdkI9sNhEqrjcEqojsNbQ3Uc/qwEx37RAAcQcNAABxBwuP1wEAAHAXAQUCX/t6If8/kcgkNwCA7BITgEh+AQHIJDcEhwCA7BITgEh+AQHIJDcAgOCQ7BITgEh+AQHIJDcAgOwSHBITgEh+AQHIJDcAgOwSE4BIf0tU/AN/yf2K3LCQAAAABJRU5ErkJggg==">
+<style>
+/* ============================================================
+   Mayberry Pharmacy brand guidelines 2023 v1.0
+   Blue #0050DF · Light Blue #84D2F8 · Cyan #00E4FF · Coral #FF7161
+   Light Grey #EAEAEA · Dark Coral #560200 · Dark Green #002728 · Dark Grey #353535
+   Headings Jeko Extrabold, tracking -30, leading = pt size (Inter 800 fallback)
+   Body Inter Regular / SemiBold, tracking -10
+   ============================================================ */
+:root{
+  --blue:#0050DF; --lightblue:#84D2F8; --cyan:#00E4FF; --coral:#FF7161;
+  --lightgrey:#EAEAEA; --darkcoral:#560200; --darkgreen:#002728; --darkgrey:#353535;
+
+  --paper:#F4F5F6; --card:#FFFFFF;
+  --ink:var(--darkgreen); --ink2:var(--darkgrey); --ink3:#8A908E;
+  --rule:var(--lightgrey); --rule2:#F0F1F1;
+  --blue-soft:#E6EDFD; --coral-soft:#FFEEEC; --cyan-soft:#E4FCFF;
+
+  --head:'Jeko','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+
+  --pill:999px;   /* brand shape: rounded pill */
+  --loz:18px;     /* brand shape: lozenge / card radius, ~5% of width */
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--body); font-size:16px; line-height:1.45; letter-spacing:-.01em;
+  font-variant-numeric:tabular-nums; -webkit-text-size-adjust:100%;
+  padding-bottom:calc(78px + env(safe-area-inset-bottom));
+}
+h1,h2,h3,h4,.num{font-family:var(--head); letter-spacing:-.03em; font-weight:800}
+:focus-visible{outline:3px solid var(--cyan); outline-offset:2px}
+
+/* ---------- masthead ---------- */
+.masthead{
+  background:var(--blue); color:#fff;
+  padding:calc(16px + env(safe-area-inset-top)) 20px 18px;
+  border-radius:0 0 var(--loz) var(--loz);
+}
+.brandline{display:flex; align-items:center; gap:10px; margin:0 0 14px}
+/* Drop the supplied Mayberry logo artwork in as logo.svg beside this file.
+   If it is absent the wordmark below shows instead. */
+.brandline img{height:26px; width:auto; display:block}
+.wordmark{font-family:var(--head); font-size:17px; letter-spacing:-.03em; line-height:1; color:#fff}
+.masthead h1{font-size:30px; line-height:1; margin:0}
+.tagline{
+  font-size:13px; font-weight:600; color:var(--cyan);
+  margin:8px 0 0; letter-spacing:-.01em;
+}
+.dx{
+  font-size:11.5px; font-weight:400; color:rgba(255,255,255,.8);
+  margin:12px 0 0; padding:9px 0 0; border-top:1px solid rgba(255,255,255,.22);
+}
+
+/* ---------- coral safety band ---------- */
+.band{
+  background:var(--coral-soft); border:2px solid var(--coral);
+  border-radius:var(--loz); margin:14px 14px 0; padding:14px 16px;
+}
+.band h2{
+  font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--darkcoral); margin:0 0 8px; font-family:var(--body); font-weight:700;
+}
+.band ol{margin:0; padding:0; list-style:none; display:grid; gap:5px}
+.band li{font-size:13.5px; line-height:1.35; color:var(--darkcoral)}
+.band li b{font-weight:700}
+
+.notice{
+  background:var(--cyan-soft); border:1px solid var(--lightblue);
+  border-radius:var(--loz); margin:14px 14px 0; padding:12px 16px;
+  font-size:12.5px; color:var(--darkgreen);
+}
+
+/* ---------- layout ---------- */
+main{padding:16px 14px 28px; max-width:640px; margin:0 auto}
+.panel{display:none}
+.panel.on{display:block}
+
+.card{
+  background:var(--card); border:1px solid var(--rule);
+  border-radius:var(--loz); padding:18px; margin:0 0 14px;
+}
+/* brand shape: one-side lozenge marker on each section head */
+.card > h3{
+  font-family:var(--body); font-weight:700; font-size:12px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--ink2);
+  margin:0 0 14px; padding:0 0 11px 0; border-bottom:1px solid var(--rule2);
+  display:flex; align-items:center; gap:9px;
+}
+.card > h3::before{
+  content:""; width:16px; height:8px; flex:none;
+  background:var(--cyan); border-radius:8px 0 0 8px;
+}
+.hint{font-size:12.5px; color:var(--ink2); margin:10px 0 0; line-height:1.4}
+
+/* ---------- segmented (pill) ---------- */
+.seg{
+  display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap:4px;
+  background:var(--lightgrey); border-radius:var(--pill); padding:4px; margin:0 0 14px;
+}
+.seg button{
+  font-family:var(--body); font-size:14px; font-weight:600; color:var(--ink2);
+  background:transparent; border:0; border-radius:var(--pill); padding:10px 4px; cursor:pointer;
+  letter-spacing:-.01em;
+}
+.seg button[aria-selected="true"]{background:var(--blue); color:#fff}
+
+/* ---------- forms ---------- */
+label{display:block; font-size:12.5px; font-weight:600; color:var(--ink2); margin:0 0 6px; letter-spacing:-.01em}
+input,select,textarea{
+  font-family:var(--body); font-size:16px; color:var(--ink); letter-spacing:-.01em;
+  font-variant-numeric:tabular-nums;
+  width:100%; background:var(--paper); border:1.5px solid var(--rule);
+  border-radius:12px; padding:12px 13px; appearance:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--blue); background:#fff}
+textarea{min-height:64px; resize:vertical}
+.field{margin:0 0 13px}
+.row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
+
+.btn{
+  font-family:var(--body); font-size:16px; font-weight:700; color:#fff; letter-spacing:-.01em;
+  background:var(--blue); border:0; border-radius:var(--pill);
+  padding:15px; width:100%; cursor:pointer;
+}
+.btn:active{opacity:.85}
+.btn.ghost{background:#fff; color:var(--blue); border:1.5px solid var(--blue); font-weight:600}
+.btn.danger{background:var(--coral); color:var(--darkcoral)}
+.btn + .btn{margin-top:9px}
+
+/* ---------- exercise rows ---------- */
+.ex{border-top:1px solid var(--rule2); padding:12px 0}
+.ex:first-of-type{border-top:0; padding-top:0}
+.ex-name{font-size:15px; font-weight:600; margin:0 0 3px; letter-spacing:-.01em}
+.ex-meta{font-size:11.5px; color:var(--ink3); margin:0 0 9px; font-weight:500}
+.ex-meta .last{
+  color:var(--blue); background:var(--blue-soft);
+  padding:2px 8px; border-radius:var(--pill); font-weight:600;
+}
+.ex-cue{
+  font-size:12.5px; line-height:1.45; color:var(--ink2); margin:0 0 10px;
+  padding:9px 12px; background:var(--paper); border-left:3px solid var(--lightblue);
+  border-radius:0 10px 10px 0;
+}
+.ex-in{display:grid; grid-template-columns:1fr 1fr; gap:9px}
+.ex-in label{font-size:11px; margin:0 0 4px}
+.bw{grid-column:1 / -1; font-size:12.5px; color:var(--ink2)}
+
+/* ---------- effort ---------- */
+.rpe-wrap{display:grid; grid-template-columns:repeat(10,1fr); gap:4px; margin:0 0 10px}
+.rpe-wrap button{
+  font-family:var(--body); font-weight:600; font-size:13px; padding:11px 0; cursor:pointer;
+  background:var(--paper); border:1.5px solid var(--rule); border-radius:9px; color:var(--ink2);
+  font-variant-numeric:tabular-nums;
+}
+.rpe-wrap button[aria-pressed="true"]{background:var(--blue); border-color:var(--blue); color:#fff}
+.rpe-wrap button.hot[aria-pressed="true"]{background:var(--coral); border-color:var(--coral); color:var(--darkcoral)}
+.warn{
+  background:var(--coral-soft); border-left:4px solid var(--coral);
+  padding:11px 13px; border-radius:0 12px 12px 0; font-size:13px;
+  color:var(--darkcoral); margin:0 0 13px;
+}
+.warn.hide{display:none}
+
+/* ---------- checks ---------- */
+.checks{display:grid; gap:8px; margin:0 0 13px}
+.chk{display:flex; align-items:center; gap:11px; background:var(--paper);
+  border:1.5px solid var(--rule); border-radius:12px; padding:12px 13px; cursor:pointer}
+.chk input{width:20px; height:20px; flex:none; accent-color:var(--blue)}
+.chk span{font-size:14.5px; font-weight:500; letter-spacing:-.01em}
+
+/* ---------- log list ---------- */
+.entry{border-left:4px solid var(--rule); border-radius:0 10px 10px 0;
+  padding:2px 0 2px 12px; margin:0 0 14px}
+.entry.lift{border-left-color:var(--blue)}
+.entry.run{border-left-color:var(--lightblue)}
+.entry.sym{border-left-color:var(--coral)}
+.entry .top{display:flex; justify-content:space-between; align-items:baseline; gap:8px}
+.entry .ttl{font-size:15px; font-weight:600; letter-spacing:-.01em}
+.entry .dt{font-size:11.5px; color:var(--ink3); flex:none; font-weight:500}
+.entry .det{font-size:12.5px; color:var(--ink2); margin:4px 0 0; line-height:1.55}
+.empty{font-size:13.5px; color:var(--ink3); text-align:center; padding:20px 0}
+
+/* ---------- table ---------- */
+table{width:100%; border-collapse:collapse; font-size:12.5px}
+th{text-align:right; font-weight:700; color:var(--ink3); font-size:10.5px;
+  letter-spacing:.07em; text-transform:uppercase; padding:0 0 8px; border-bottom:1.5px solid var(--rule)}
+th:first-child,td:first-child{text-align:left}
+td{text-align:right; padding:9px 0; border-bottom:1px solid var(--rule2); font-weight:500}
+td.flag{color:var(--blue); font-weight:700}
+td.bad{color:var(--coral); font-weight:700}
+
+/* ---------- charts ---------- */
+.chart{width:100%; height:auto; display:block; overflow:visible}
+.legend{display:flex; flex-wrap:wrap; gap:14px; margin:12px 0 0; font-size:11.5px;
+  color:var(--ink2); font-weight:500}
+.legend i{display:inline-block; width:16px; height:4px; border-radius:var(--pill);
+  margin-right:6px; vertical-align:middle}
+.thesis{font-size:14.5px; line-height:1.45; color:var(--ink);
+  margin:14px 0 0; padding:14px 0 0; border-top:1px solid var(--rule2)}
+.thesis b{font-weight:700}
+
+/* ---------- plan tab ---------- */
+.plan-h{font-family:var(--head); font-size:20px; line-height:1; margin:0 0 4px}
+.plan-sub{font-size:11.5px; color:var(--ink3); margin:0 0 13px; font-weight:600;
+  letter-spacing:.06em; text-transform:uppercase}
+.plan-row{padding:12px 0; border-top:1px solid var(--rule2)}
+.plan-row:first-of-type{border-top:0; padding-top:0}
+.plan-top{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+.plan-n{font-size:14.5px; font-weight:600; letter-spacing:-.01em}
+.plan-row .dose{font-size:12.5px; color:var(--blue); font-weight:600; flex:none;
+  background:var(--blue-soft); padding:3px 10px; border-radius:var(--pill)}
+.plan-cue{font-size:12.5px; line-height:1.45; color:var(--ink2); margin:6px 0 0}
+
+/* ---------- tab bar ---------- */
+.tabbar{
+  position:fixed; left:0; right:0; bottom:0; z-index:20;
+  display:grid; grid-template-columns:repeat(4,1fr);
+  background:rgba(255,255,255,.95); backdrop-filter:blur(14px);
+  border-top:1px solid var(--rule); padding-bottom:env(safe-area-inset-bottom);
+}
+.tabbar button{
+  font-family:var(--body); font-size:11px; font-weight:600; color:var(--ink3);
+  background:transparent; border:0; padding:11px 2px 12px; cursor:pointer;
+  display:grid; gap:4px; justify-items:center; letter-spacing:-.005em;
+}
+.tabbar button[aria-selected="true"]{color:var(--blue); font-weight:700}
+.tabbar .ico{
+  display:grid; place-items:center; width:46px; height:28px; border-radius:var(--pill);
+}
+.tabbar button[aria-selected="true"] .ico{background:var(--blue-soft)}
+.tabbar svg{width:20px; height:20px; stroke:currentColor; fill:none;
+  stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
+
+.toast{
+  position:fixed; left:50%; transform:translateX(-50%) translateY(20px);
+  bottom:calc(88px + env(safe-area-inset-bottom)); z-index:40;
+  background:var(--darkgreen); color:#fff; font-size:14px; font-weight:600;
+  padding:12px 20px; border-radius:var(--pill); opacity:0; pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease; max-width:88vw; text-align:center;
+  letter-spacing:-.01em;
+}
+.toast.on{opacity:1; transform:translateX(-50%) translateY(0)}
+.toast.alert{background:var(--coral); color:var(--darkcoral)}
+@media (prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="brandline">
+    <img src="logo.svg" alt="Mayberry Pharmacy" onerror="this.remove()">
+    <span class="wordmark">Mayberry Pharmacy</span>
+  </div>
+  <h1>Training Record</h1>
+  <p class="tagline">Keeping your health on track</p>
+  <p class="dx">Bicuspid aortic valve · moderate AR · ascending aorta 4.1 cm · EF 53% · losartan 100 mg, bisoprolol 1.25 mg</p>
+</header>
+
+<div class="band">
+  <h2>Before every set</h2>
+  <ol>
+    <li><b>Breathe out on the effort.</b> Count your reps aloud if you are not sure.</li>
+    <li><b>Stop 4–5 reps short.</b> Nothing is ever ground out.</li>
+    <li><b>Go by effort, not heart rate.</b> Bisoprolol makes the number meaningless.</li>
+  </ol>
+</div>
+
+<div class="notice" id="storeWarn" hidden>Saving is switched off in this preview, so anything you enter will disappear when you close the tab. Once the page is on GitHub Pages and added to your home screen it saves properly.</div>
+
+<main>
+
+<!-- ============ LOG ============ -->
+<section class="panel on" id="p-log">
+  <div class="seg" role="tablist">
+    <button role="tab" aria-selected="true" data-form="lift">Lift</button>
+    <button role="tab" aria-selected="false" data-form="run">Run</button>
+    <button role="tab" aria-selected="false" data-form="sym">Symptom</button>
+  </div>
+
+  <div class="card" id="f-lift">
+    <h3>Resistance session</h3>
+    <div class="row">
+      <div class="field"><label for="lDate">Date</label><input type="date" id="lDate"></div>
+      <div class="field"><label for="lType">Session</label>
+        <select id="lType"><option value="A">A — Monday</option><option value="B">B — Wednesday</option><option value="C">C — Friday</option></select>
+      </div>
+    </div>
+    <div id="exList"></div>
+    <div class="field" style="margin-top:16px">
+      <label>How hard was the session?</label>
+      <div class="rpe-wrap" id="rpe"></div>
+      <div class="warn hide" id="rpeWarn">Above 7 means the load was too high. Take some weight off next time.</div>
+    </div>
+    <div class="field"><label for="lNote">Notes</label><textarea id="lNote" placeholder="How it felt, anything you changed"></textarea></div>
+    <button class="btn" id="saveLift">Save session</button>
+  </div>
+
+  <div class="card" id="f-run" hidden>
+    <h3>Run</h3>
+    <div class="row">
+      <div class="field"><label for="rDate">Date</label><input type="date" id="rDate"></div>
+      <div class="field"><label for="rPlan">Session</label>
+        <select id="rPlan">
+          <option>W5 D1 — 5/5/5 min</option>
+          <option>W5 D2 — 8/8 min</option>
+          <option>W5 D3 — 20 min continuous</option>
+          <option>Other run</option>
+          <option>Swim</option>
+        </select>
+      </div>
+    </div>
+    <div class="row3">
+      <div class="field"><label for="rMin">Minutes</label><input type="number" id="rMin" inputmode="decimal" step="0.5" placeholder="20"></div>
+      <div class="field"><label for="rKm">Distance km</label><input type="number" id="rKm" inputmode="decimal" step="0.01" placeholder="3.2"></div>
+      <div class="field"><label for="rSpeed">Speed km/h</label><input type="number" id="rSpeed" inputmode="decimal" step="0.1" placeholder="8.0"></div>
+    </div>
+    <div class="checks">
+      <label class="chk"><input type="checkbox" id="rDone" checked><span>Completed as prescribed</span></label>
+      <label class="chk"><input type="checkbox" id="rTalk" checked><span>Could hold a conversation throughout</span></label>
+    </div>
+    <div class="field"><label for="rNote">Notes</label><textarea id="rNote" placeholder="Pace, how it felt, what you ate beforehand"></textarea></div>
+    <button class="btn" id="saveRun">Save run</button>
+  </div>
+
+  <div class="card" id="f-sym" hidden>
+    <h3>Symptom</h3>
+    <div class="warn" style="margin-bottom:15px">Stop the session. Do not start again until you have spoken to your GP or cardiology. If chest pain does not settle within a few minutes, or if you collapse, call 999.</div>
+    <div class="field"><label for="sDate">Date</label><input type="date" id="sDate"></div>
+    <div class="checks" id="symChecks"></div>
+    <div class="field"><label for="sAct">What you were doing</label><input type="text" id="sAct" placeholder="e.g. third set of leg press"></div>
+    <div class="field"><label for="sNote">Notes</label><textarea id="sNote" placeholder="How long it lasted, what settled it"></textarea></div>
+    <button class="btn danger" id="saveSym">Record symptom</button>
+  </div>
+
+  <div class="card">
+    <h3>Recent</h3>
+    <div id="recent"></div>
+  </div>
+</section>
+
+<!-- ============ VITALS ============ -->
+<section class="panel" id="p-vitals">
+  <div class="card">
+    <h3>Weekly observations</h3>
+    <div class="field"><label for="vDate">Date</label><input type="date" id="vDate"></div>
+    <div class="row">
+      <div class="field"><label for="vKg">Weight kg</label><input type="number" id="vKg" inputmode="decimal" step="0.1" placeholder="82.5"><p class="hint" id="stReadout"></p></div>
+      <div class="field"><label for="vWaist">Waist cm</label><input type="number" id="vWaist" inputmode="decimal" step="0.5" placeholder="94"></div>
+    </div>
+    <div class="row3">
+      <div class="field"><label for="vRhr">Resting HR</label><input type="number" id="vRhr" inputmode="numeric" placeholder="56"></div>
+      <div class="field"><label for="vSys">BP systolic</label><input type="number" id="vSys" inputmode="numeric" placeholder="119"></div>
+      <div class="field"><label for="vDia">BP diastolic</label><input type="number" id="vDia" inputmode="numeric" placeholder="68"></div>
+    </div>
+    <div class="checks">
+      <label class="chk"><input type="checkbox" id="vPost"><span>Taken after training, not at rest</span></label>
+    </div>
+    <button class="btn" id="saveVit">Save observations</button>
+    <p class="hint">Resting heart rate before you get out of bed. Weight and waist on the same day each week, in the same conditions. Target systolic under 130.</p>
+  </div>
+
+  <div class="card">
+    <h3>History</h3>
+    <div id="vitTable"></div>
+  </div>
+</section>
+
+<!-- ============ TRENDS ============ -->
+<section class="panel" id="p-trends">
+  <div class="card">
+    <h3>Weight against work</h3>
+    <div id="chartMain"></div>
+    <div class="legend">
+      <span><i style="background:#0050DF"></i>Work index, % of first session</span>
+      <span><i style="background:#353535"></i>Body weight</span>
+    </div>
+    <p class="thesis" id="thesis"></p>
+  </div>
+
+  <div class="card">
+    <h3>Blood pressure</h3>
+    <div id="chartBP"></div>
+    <div class="legend">
+      <span><i style="background:#0050DF"></i>Systolic</span>
+      <span><i style="background:#353535"></i>Diastolic</span>
+      <span><i style="background:#84D2F8"></i>Under 130</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Running</h3>
+    <div id="chartRun"></div>
+    <div class="legend">
+      <span><i style="background:#0050DF"></i>Completed</span>
+      <span><i style="background:#FF7161"></i>Cut short</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>For the October review</h3>
+    <p class="hint" style="margin:0 0 14px">A plain summary of everything logged, ready to paste into an email to Professor Groves' secretary.</p>
+    <button class="btn ghost" id="btnSummary">Copy summary</button>
+    <button class="btn ghost" id="btnCsv">Download CSV</button>
+    <button class="btn ghost" id="btnWipe" style="color:#560200; border-color:#FF7161">Erase all data</button>
+  </div>
+</section>
+
+<!-- ============ PLAN ============ -->
+<section class="panel" id="p-plan">
+  <div class="card">
+    <h3>Load rule</h3>
+    <p style="margin:0; font-size:14.5px">Pick a weight you could lift about 25 times, then stop at 15. Nothing through the trunk above roughly 40 kg. Progress by adding reps rather than weight — build 12 up to 20, then a small increment and back to 12.</p>
+  </div>
+  <div class="card" id="planCard"></div>
+  <div class="card">
+    <h3>Cool down — every session</h3>
+    <p style="margin:0 0 10px; font-size:14.5px">Five minutes of easy walking or cycling, then two minutes on your feet before you sit down.</p>
+    <p style="margin:0; font-size:14.5px">No sauna, steam room or hot tub for at least half an hour afterwards.</p>
+  </div>
+</section>
+
+</main>
+
+<nav class="tabbar" role="tablist">
+  <button role="tab" aria-selected="true" data-tab="log"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg></span>Log</button>
+  <button role="tab" aria-selected="false" data-tab="vitals"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 3 10 2.5-7 1.5 2h5"/></svg></span>Vitals</button>
+  <button role="tab" aria-selected="false" data-tab="trends"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 15l4-5 3 3 5-7"/></svg></span>Trends</button>
+  <button role="tab" aria-selected="false" data-tab="plan"><span class="ico"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg></span>Plan</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------------- brand tokens for charts ---------------- */
+const C={blue:'#0050DF',lightblue:'#84D2F8',cyan:'#00E4FF',coral:'#FF7161',
+  grey:'#353535',rule:'#EAEAEA',ink3:'#8A908E',coralSoft:'#FFEEEC',blueSoft:'#EDF7FE'};
+
+/* ---------------- storage ---------------- */
+const store=(()=>{let mem={},ok=true;
+  try{localStorage.setItem('__t','1');localStorage.removeItem('__t');}catch(e){ok=false;}
+  return{ok,
+    get(k,d){try{if(!ok)return k in mem?mem[k]:d;const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return k in mem?mem[k]:d;}},
+    set(k,v){try{if(!ok){mem[k]=v;return;}localStorage.setItem(k,JSON.stringify(v));}catch(e){mem[k]=v;}}};
+})();
+if(!store.ok) document.getElementById('storeWarn').hidden=false;
+
+let DB=store.get('tr_db',{lifts:[],runs:[],symptoms:[],vitals:[]});
+const save=()=>store.set('tr_db',DB);
+const $=id=>document.getElementById(id);
+const today=()=>new Date().toISOString().slice(0,10);
+const fmt=d=>{const[y,m,dd]=d.split('-');return dd+'/'+m+'/'+y.slice(2);};
+
+function toast(msg,alert){const t=$('toast');t.textContent=msg;t.className='toast on'+(alert?' alert':'');
+  clearTimeout(t._x);t._x=setTimeout(()=>t.className='toast',2600);}
+
+/* ---------------- programme ---------------- */
+const PLAN={
+  A:{day:'Monday',ex:[
+    {n:'Leg press (light)',s:3,r:'15–20',cue:'Feet shoulder width, middle of the platform. Bend to about 90°, push back without snapping the knees straight.'},
+    {n:'Chest press machine',s:3,r:'12–15',cue:'Set the seat so the handles sit at mid-chest. Elbows just below shoulder height, not flared out wide.'},
+    {n:'Seated leg curl',s:3,r:'15',cue:'Line your knee up with the machine pivot. Curl smoothly and lower slower than you lift.'},
+    {n:'Seated cable row',s:3,r:'12–15',cue:'Slight knee bend, chest tall. Pull to the navel, squeeze the shoulder blades. No rocking backwards.'},
+    {n:'Lateral raise 5 kg',s:2,r:'15',cue:'Lead with the elbows. Stop at shoulder height and lower slowly. Light is correct here.'},
+    {n:'Dead bug',s:3,r:'10 each side',bw:1,cue:'Lower back stays flat to the floor. Opposite arm and leg, slowly. Keep breathing throughout.'}]},
+  B:{day:'Wednesday',ex:[
+    {n:'Lat pulldown',s:3,r:'12–15',cue:'Thigh pad snug. Pull the bar to your upper chest, driving the elbows down and back. Barely lean back.'},
+    {n:'Incline chest press',s:3,r:'12–15',cue:'This replaces overhead pressing. Handles at upper chest, elbows tucked slightly in.'},
+    {n:'Split squat',s:3,r:'12 each leg',cue:'Rear foot on the floor, not raised. Hold the rail. Drop straight down, front knee over mid-foot.'},
+    {n:'Chest-supported row',s:3,r:'12–15',cue:'Chest stays on the pad. Pull the elbows past your ribs, pause, lower under control.'},
+    {n:'Cable curl / pushdown',s:2,r:'15',cue:'Elbows pinned to your sides for both. Alternate the two with very little rest between.'},
+    {n:'Bird dog',s:3,r:'10 each side',bw:1,cue:'Opposite arm and leg out to horizontal, hips level. Slow, and breathe normally throughout.'}]},
+  C:{day:'Friday',ex:[
+    {n:'Hip thrust machine',s:3,r:'15',cue:'Pad across the hips, feet flat. Drive through the heels and squeeze at the top without over-arching.'},
+    {n:'Leg extension',s:3,r:'15',cue:'Knee lined up with the pivot. Straighten smoothly rather than kicking. Lower slower than you lift.'},
+    {n:'Cable pull-through',s:3,r:'15',cue:'Cable low, between your legs, facing away. Hips back with a neutral spine, then stand up by squeezing the glutes.'},
+    {n:'Single-arm cable row',s:3,r:'12–15',cue:'Split stance, torso still. Pull the elbow past your ribs and resist the twist.'},
+    {n:'Cable face pull',s:3,r:'15',cue:'Rope set at upper chest height. Pull towards your forehead, hands finishing wide, elbows high.'},
+    {n:'Pallof press',s:2,r:'10 each side',bw:1,cue:'Stand side-on to the cable. Press straight out and resist the twist. Do not hold the position.'}]}
+};
+const SYMPTOMS=['Dizziness or light-headedness','Chest pain, pressure or tightness','Palpitations or irregular beat','Breathlessness beyond the effort','Unusual fatigue'];
+
+/* ---------------- tabs ---------------- */
+document.querySelectorAll('.tabbar button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabbar button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.id==='p-'+b.dataset.tab));
+  window.scrollTo(0,0);
+  if(b.dataset.tab==='trends')drawAll();
+  if(b.dataset.tab==='vitals')drawVitTable();
+});
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  ['lift','run','sym'].forEach(f=>$('f-'+f).hidden=(f!==b.dataset.form));
+});
+
+/* ---------------- lift form ---------------- */
+let rpeVal=null;
+function buildRpe(){const w=$('rpe');w.innerHTML='';
+  for(let i=1;i<=10;i++){const b=document.createElement('button');
+    b.type='button';b.textContent=i;b.setAttribute('aria-pressed','false');
+    if(i>7)b.className='hot';
+    b.onclick=()=>{rpeVal=i;
+      [...w.children].forEach((c,j)=>c.setAttribute('aria-pressed',j+1===i));
+      $('rpeWarn').classList.toggle('hide',i<=7);};
+    w.appendChild(b);}}
+function lastFor(name){for(let i=DB.lifts.length-1;i>=0;i--){const e=DB.lifts[i].entries.find(x=>x.name===name);if(e&&(e.weight||e.reps))return e;}return null;}
+function buildEx(){
+  const t=$('lType').value,L=$('exList');L.innerHTML='';
+  PLAN[t].ex.forEach(x=>{
+    const name=x.n,last=lastFor(name);
+    const d=document.createElement('div');d.className='ex';
+    d.innerHTML='<p class="ex-name">'+name+'</p><p class="ex-meta">'+x.s+' × '+x.r+
+      (last?' &nbsp; <span class="last">last '+(last.weight?last.weight+' kg × ':'')+last.reps+'</span>':'')+'</p>'+
+      '<p class="ex-cue">'+x.cue+'</p>'+
+      (x.bw?'<div class="ex-in"><div class="bw">Bodyweight — log reps only</div><div><label>Reps last set</label><input type="number" inputmode="numeric" data-n="'+name+'" data-f="reps" value="'+(last?last.reps||'':'')+'"></div></div>'
+        :'<div class="ex-in"><div><label>Weight kg</label><input type="number" inputmode="decimal" step="0.5" data-n="'+name+'" data-f="weight" value="'+(last?last.weight||'':'')+'"></div><div><label>Reps last set</label><input type="number" inputmode="numeric" data-n="'+name+'" data-f="reps" value=""></div></div>');
+    d.dataset.sets=x.s;L.appendChild(d);});
+}
+$('lType').onchange=buildEx;
+
+$('saveLift').onclick=()=>{
+  const entries=[];
+  document.querySelectorAll('#exList .ex').forEach(d=>{
+    const name=d.querySelector('[data-n]').dataset.n,sets=+d.dataset.sets;
+    const w=d.querySelector('[data-f=weight]'),r=d.querySelector('[data-f=reps]');
+    entries.push({name,sets,weight:w?parseFloat(w.value)||0:0,reps:parseInt(r.value)||0});});
+  if(!entries.some(e=>e.reps)){toast('Add at least one set',true);return;}
+  DB.lifts.push({date:$('lDate').value||today(),type:$('lType').value,entries,rpe:rpeVal,note:$('lNote').value.trim()});
+  DB.lifts.sort((a,b)=>a.date<b.date?-1:1);save();
+  $('lNote').value='';rpeVal=null;buildRpe();$('rpeWarn').classList.add('hide');
+  buildEx();drawRecent();toast('Session saved');
+};
+
+/* ---------------- run ---------------- */
+$('saveRun').onclick=()=>{
+  const min=parseFloat($('rMin').value)||0;
+  if(!min){toast('Add the minutes',true);return;}
+  DB.runs.push({date:$('rDate').value||today(),plan:$('rPlan').value,min,
+    km:parseFloat($('rKm').value)||0,speed:parseFloat($('rSpeed').value)||0,
+    done:$('rDone').checked,talk:$('rTalk').checked,note:$('rNote').value.trim()});
+  DB.runs.sort((a,b)=>a.date<b.date?-1:1);save();
+  $('rMin').value='';$('rKm').value='';$('rSpeed').value='';$('rNote').value='';
+  drawRecent();toast('Run saved');
+};
+
+/* ---------------- symptom ---------------- */
+function buildSym(){const c=$('symChecks');c.innerHTML='';
+  SYMPTOMS.forEach(s=>{const l=document.createElement('label');l.className='chk';
+    l.innerHTML='<input type="checkbox" value="'+s+'"><span>'+s+'</span>';c.appendChild(l);});}
+$('saveSym').onclick=()=>{
+  const picked=[...$('symChecks').querySelectorAll('input:checked')].map(i=>i.value);
+  if(!picked.length){toast('Tick what happened',true);return;}
+  DB.symptoms.push({date:$('sDate').value||today(),types:picked,act:$('sAct').value.trim(),note:$('sNote').value.trim()});
+  DB.symptoms.sort((a,b)=>a.date<b.date?-1:1);save();
+  $('symChecks').querySelectorAll('input').forEach(i=>i.checked=false);
+  $('sAct').value='';$('sNote').value='';
+  drawRecent();toast('Recorded — tell your GP or cardiology',true);
+};
+
+/* ---------------- vitals ---------------- */
+$('vKg').oninput=()=>{const kg=parseFloat($('vKg').value);
+  if(!kg){$('stReadout').textContent='';return;}
+  const lb=kg*2.20462,st=Math.floor(lb/14);
+  $('stReadout').textContent='= '+st+' st '+(lb-st*14).toFixed(1)+' lb';};
+$('saveVit').onclick=()=>{
+  const kg=parseFloat($('vKg').value)||0;
+  const o={date:$('vDate').value||today(),kg,waist:parseFloat($('vWaist').value)||0,
+    rhr:parseInt($('vRhr').value)||0,sys:parseInt($('vSys').value)||0,
+    dia:parseInt($('vDia').value)||0,post:$('vPost').checked};
+  if(!kg&&!o.sys&&!o.rhr&&!o.waist){toast('Nothing to save yet',true);return;}
+  DB.vitals.push(o);DB.vitals.sort((a,b)=>a.date<b.date?-1:1);save();
+  ['vKg','vWaist','vRhr','vSys','vDia'].forEach(i=>$(i).value='');
+  $('vPost').checked=false;$('stReadout').textContent='';
+  drawVitTable();toast('Observations saved');
+};
+function drawVitTable(){
+  const v=[...DB.vitals].reverse().slice(0,14);
+  if(!v.length){$('vitTable').innerHTML='<p class="empty">Add your first set of readings above.</p>';return;}
+  let h='<table><thead><tr><th>Date</th><th>kg</th><th>Waist</th><th>RHR</th><th>BP</th></tr></thead><tbody>';
+  v.forEach(r=>{
+    let cls='';
+    if(r.sys>=140)cls='bad';else if(r.sys>=130)cls='flag';
+    h+='<tr><td>'+fmt(r.date)+(r.post?' *':'')+'</td><td>'+(r.kg||'–')+'</td><td>'+(r.waist||'–')+
+      '</td><td>'+(r.rhr||'–')+'</td><td class="'+cls+'">'+(r.sys?r.sys+'/'+r.dia:'–')+'</td></tr>';});
+  h+='</tbody></table>';
+  if(v.some(r=>r.post))h+='<p class="hint">* taken after training</p>';
+  $('vitTable').innerHTML=h;
+}
+
+/* ---------------- recent ---------------- */
+function drawRecent(){
+  const all=[
+    ...DB.lifts.map(x=>({k:'lift',d:x.date,o:x})),
+    ...DB.runs.map(x=>({k:'run',d:x.date,o:x})),
+    ...DB.symptoms.map(x=>({k:'sym',d:x.date,o:x}))
+  ].sort((a,b)=>a.d<b.d?1:-1).slice(0,12);
+  if(!all.length){$('recent').innerHTML='<p class="empty">Nothing logged yet. Your first session will appear here.</p>';return;}
+  $('recent').innerHTML=all.map(e=>{
+    const o=e.o;let ttl,det;
+    if(e.k==='lift'){
+      ttl='Session '+o.type+' · '+PLAN[o.type].day;
+      det=o.entries.filter(x=>x.reps).map(x=>x.name.split(' (')[0]+' '+(x.weight?x.weight+'kg×':'')+x.reps).join('<br>');
+      if(o.rpe)det+='<br>Effort '+o.rpe+'/10'+(o.rpe>7?' — too high':'');
+    }else if(e.k==='run'){
+      ttl=o.plan;det=o.min+' min'+(o.km?' · '+o.km+' km':'')+(o.speed?' · '+o.speed+' km/h':'')+
+        (o.done?'':' · not completed')+(o.talk?'':' · could not talk');
+    }else{ttl='Symptom';det=o.types.join('<br>')+(o.act?'<br>'+o.act:'');}
+    return '<div class="entry '+e.k+'"><div class="top"><span class="ttl">'+ttl+
+      '</span><span class="dt">'+fmt(e.d)+'</span></div><p class="det">'+det+'</p></div>';
+  }).join('');
+}
+
+/* ---------------- charts ---------------- */
+const W=560,H=200,PAD={l:36,r:38,t:16,b:22};
+const FONT='Inter,-apple-system,sans-serif';
+function scale(vals,lo,hi){const mn=Math.min(...vals),mx=Math.max(...vals);
+  const pad=(mx-mn)*0.15||1;return v=>{const a=mn-pad,b=mx+pad;return hi-((v-a)/(b-a))*(hi-lo);};}
+function xAt(i,n){return PAD.l+(n<2?(W-PAD.l-PAD.r)/2:(i/(n-1))*(W-PAD.l-PAD.r));}
+function path(pts){return pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');}
+function svgWrap(inner){return '<svg class="chart" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" role="img">'+inner+'</svg>';}
+function noData(msg){return '<p class="empty">'+msg+'</p>';}
+function label(x,y,txt,col,anchor){return '<text x="'+x+'" y="'+y+'" '+(anchor?'text-anchor="'+anchor+'" ':'')+
+  'font-family="'+FONT+'" font-size="10.5" font-weight="600" fill="'+col+'">'+txt+'</text>';}
+
+function workIndex(){
+  const base={},out=[];
+  DB.lifts.forEach(s=>{
+    const vol=s.entries.reduce((t,e)=>t+(e.weight||1)*(e.reps||0)*(e.sets||1),0);
+    if(!vol)return;
+    if(!base[s.type])base[s.type]=vol;
+    out.push({date:s.date,idx:vol/base[s.type]*100});});
+  return out;
+}
+function drawMain(){
+  const wts=DB.vitals.filter(v=>v.kg).map(v=>({date:v.date,val:v.kg}));
+  const wk=workIndex();
+  if(wts.length<2&&wk.length<2){$('chartMain').innerHTML=noData('Log two weeks of weight and two sessions and the trend appears here.');$('thesis').textContent='';return;}
+  const yTop=PAD.t,yBot=H-PAD.b;
+  let g='<line x1="'+PAD.l+'" y1="'+yBot+'" x2="'+(W-PAD.r)+'" y2="'+yBot+'" stroke="'+C.rule+'" stroke-width="1.5"/>';
+  if(wts.length>1){const y=scale(wts.map(d=>d.val),yTop,yBot);
+    const pts=wts.map((d,i)=>[xAt(i,wts.length),y(d.val)]);
+    g+='<path d="'+path(pts)+'" stroke="'+C.grey+'" stroke-width="2.5" fill="none" stroke-linejoin="round"/>';
+    pts.forEach(p=>g+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3.2" fill="'+C.grey+'"/>');
+    g+=label(PAD.l-7,pts[0][1]+4,wts[0].val,C.grey,'end');
+    g+=label(W-PAD.r+7,pts.at(-1)[1]+4,wts.at(-1).val,C.grey);}
+  if(wk.length>1){const y=scale(wk.map(d=>d.idx),yTop,yBot);
+    const pts=wk.map((d,i)=>[xAt(i,wk.length),y(d.idx)]);
+    g+='<path d="'+path(pts)+'" stroke="'+C.blue+'" stroke-width="3" fill="none" stroke-linejoin="round"/>';
+    pts.forEach(p=>g+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3.6" fill="'+C.blue+'"/>');
+    g+=label(W-PAD.r+7,pts.at(-1)[1]+4,Math.round(wk.at(-1).idx)+'%',C.blue);}
+  $('chartMain').innerHTML=svgWrap(g);
+  let t='';
+  if(wts.length>1&&wk.length>1){
+    const dw=wts.at(-1).val-wts[0].val,di=wk.at(-1).idx-100;
+    if(dw<0&&di>=-5)t='<b>'+Math.abs(dw).toFixed(1)+' kg down, and your work is holding at '+Math.round(wk.at(-1).idx)+'%.</b> That is muscle staying on while the weight comes off — exactly what this programme is for.';
+    else if(dw<0&&di<-5)t='<b>Weight is down '+Math.abs(dw).toFixed(1)+' kg, but work has slipped to '+Math.round(wk.at(-1).idx)+'%.</b> Worth checking protein is reaching 130–165 g a day, and that the deficit is not too deep.';
+    else t='Weight has moved '+dw.toFixed(1)+' kg and work is at '+Math.round(wk.at(-1).idx)+'% of where you started.';}
+  $('thesis').innerHTML=t;
+}
+function drawBP(){
+  const v=DB.vitals.filter(x=>x.sys&&!x.post);
+  if(v.length<2){$('chartBP').innerHTML=noData('Two resting readings and the trend appears here.');return;}
+  const y=scale([...v.map(x=>x.sys),...v.map(x=>x.dia)],PAD.t,H-PAD.b);
+  const y130=Math.max(PAD.t,Math.min(H-PAD.b,y(130)));
+  let g='<rect x="'+PAD.l+'" y="'+PAD.t+'" width="'+(W-PAD.l-PAD.r)+'" height="'+(y130-PAD.t)+'" fill="'+C.coralSoft+'"/>';
+  g+='<rect x="'+PAD.l+'" y="'+y130+'" width="'+(W-PAD.l-PAD.r)+'" height="'+((H-PAD.b)-y130)+'" fill="'+C.blueSoft+'"/>';
+  g+='<line x1="'+PAD.l+'" y1="'+y130+'" x2="'+(W-PAD.r)+'" y2="'+y130+'" stroke="'+C.lightblue+'" stroke-width="1.5" stroke-dasharray="5 4"/>';
+  g+=label(W-PAD.r-3,y130-5,'130',C.ink3,'end');
+  [['sys',C.blue],['dia',C.grey]].forEach(([k,col])=>{
+    const pts=v.map((d,i)=>[xAt(i,v.length),y(d[k])]);
+    g+='<path d="'+path(pts)+'" stroke="'+col+'" stroke-width="2.8" fill="none" stroke-linejoin="round"/>';
+    pts.forEach(p=>g+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3.2" fill="'+col+'"/>');
+    g+=label(W-PAD.r+7,pts.at(-1)[1]+4,v.at(-1)[k],col);});
+  $('chartBP').innerHTML=svgWrap(g);
+}
+function drawRun(){
+  const r=DB.runs.filter(x=>x.min);
+  if(r.length<2){$('chartRun').innerHTML=noData('Two runs and the trend appears here.');return;}
+  const y=scale([0,...r.map(x=>x.min)],PAD.t,H-PAD.b);
+  const bw=Math.min(28,(W-PAD.l-PAD.r)/r.length*0.62);
+  let g='<line x1="'+PAD.l+'" y1="'+(H-PAD.b)+'" x2="'+(W-PAD.r)+'" y2="'+(H-PAD.b)+'" stroke="'+C.rule+'" stroke-width="1.5"/>';
+  r.forEach((d,i)=>{const x=xAt(i,r.length),yy=y(d.min);
+    g+='<rect x="'+(x-bw/2).toFixed(1)+'" y="'+yy.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+((H-PAD.b)-yy).toFixed(1)+
+      '" rx="'+(bw/2.6).toFixed(1)+'" fill="'+(d.done?C.blue:C.coral)+'"/>';
+    g+=label(x.toFixed(1),(yy-6).toFixed(1),d.min,C.grey,'middle');});
+  $('chartRun').innerHTML=svgWrap(g);
+}
+function drawAll(){drawMain();drawBP();drawRun();}
+
+/* ---------------- export ---------------- */
+function summary(){
+  let s='MAYBERRY PHARMACY — TRAINING RECORD\nGenerated '+fmt(today())+'\n';
+  s+='Programme: 3 resistance sessions weekly, 12-20 reps, no Valsalva, no maximal effort. 3 runs weekly (Couch to 5K), conversational pace.\n\n';
+  const v=DB.vitals.filter(x=>!x.post);
+  if(v.length){s+='OBSERVATIONS\n';v.forEach(r=>{s+=fmt(r.date)+'  '+(r.kg?r.kg+' kg  ':'')+(r.waist?'waist '+r.waist+' cm  ':'')+(r.rhr?'RHR '+r.rhr+'  ':'')+(r.sys?'BP '+r.sys+'/'+r.dia:'')+'\n';});
+    const f=v.filter(x=>x.kg);if(f.length>1)s+='Change: '+(f.at(-1).kg-f[0].kg).toFixed(1)+' kg over '+f.length+' readings.\n';s+='\n';}
+  const post=DB.vitals.filter(x=>x.post);
+  if(post.length){s+='POST-EXERCISE BP\n';post.forEach(r=>s+=fmt(r.date)+'  '+r.sys+'/'+r.dia+'\n');s+='\n';}
+  const wk=workIndex();
+  if(wk.length){s+='RESISTANCE TRAINING\n'+DB.lifts.length+' sessions logged. Work index now '+Math.round(wk.at(-1).idx)+'% of baseline.\n';
+    const hot=DB.lifts.filter(x=>x.rpe>7);if(hot.length)s+=hot.length+' session(s) at effort above 7/10.\n';s+='\n';}
+  if(DB.runs.length){const done=DB.runs.filter(x=>x.done).length;
+    s+='RUNNING\n'+DB.runs.length+' sessions, '+done+' completed as prescribed. Longest continuous: '+Math.max(...DB.runs.map(x=>x.min))+' min.\n';
+    const nt=DB.runs.filter(x=>!x.talk).length;if(nt)s+=nt+' run(s) where conversation was not possible.\n';s+='\n';}
+  s+='SYMPTOMS\n';
+  if(!DB.symptoms.length)s+='None recorded.\n';
+  else DB.symptoms.forEach(x=>s+=fmt(x.date)+'  '+x.types.join('; ')+(x.act?'  during: '+x.act:'')+(x.note?'  '+x.note:'')+'\n');
+  s+='\nQUESTIONS\n1. Is there a specific upper load limit for the gym?\n2. Given moderate AR and EF 53%, is interval training reasonable at some point?\n3. Should losartan and bisoprolol be reviewed as weight comes down on tirzepatide?\n4. Does the earlier episode of exertional dizziness change any of the above?\n';
+  return s;
+}
+$('btnSummary').onclick=async()=>{const s=summary();
+  try{await navigator.clipboard.writeText(s);toast('Summary copied');}
+  catch(e){const t=document.createElement('textarea');t.value=s;document.body.appendChild(t);
+    t.select();document.execCommand('copy');t.remove();toast('Summary copied');}};
+$('btnCsv').onclick=()=>{
+  let c='type,date,detail1,detail2,detail3,detail4\n';
+  DB.vitals.forEach(v=>c+='vitals,'+v.date+','+v.kg+','+v.waist+','+v.rhr+','+(v.sys?v.sys+'/'+v.dia:'')+'\n');
+  DB.lifts.forEach(l=>l.entries.forEach(e=>c+='lift,'+l.date+','+l.type+',"'+e.name+'",'+e.weight+','+e.reps+'\n'));
+  DB.runs.forEach(r=>c+='run,'+r.date+',"'+r.plan+'",'+r.min+','+r.km+','+(r.done?'completed':'partial')+'\n');
+  DB.symptoms.forEach(s=>c+='symptom,'+s.date+',"'+s.types.join('; ')+'","'+s.act+'",,\n');
+  const b=new Blob([c],{type:'text/csv'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download='training-record-'+today()+'.csv';a.click();URL.revokeObjectURL(u);toast('CSV downloaded');};
+$('btnWipe').onclick=()=>{if(confirm('Erase every logged session, run, symptom and observation? This cannot be undone.')){
+  DB={lifts:[],runs:[],symptoms:[],vitals:[]};save();buildEx();drawRecent();drawVitTable();drawAll();toast('All data erased');}};
+
+/* ---------------- plan tab ---------------- */
+function buildPlan(){
+  $('planCard').innerHTML=Object.entries(PLAN).map(([k,p],i)=>
+    (i?'<div style="height:26px"></div>':'')+
+    '<h4 class="plan-h">Session '+k+'</h4><p class="plan-sub">'+p.day+'</p>'+
+    p.ex.map(x=>'<div class="plan-row"><div class="plan-top"><span class="plan-n">'+x.n+
+      '</span><span class="dose">'+x.s+' × '+x.r+'</span></div><p class="plan-cue">'+x.cue+'</p></div>').join('')
+  ).join('');
+}
+
+/* ---------------- init ---------------- */
+['lDate','rDate','sDate','vDate'].forEach(i=>$(i).value=today());
+buildRpe();buildEx();buildSym();buildPlan();drawRecent();drawVitTable();
+</script>
+</body>
+</html>
